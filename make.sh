@@ -24,7 +24,6 @@ INCLUDES_BASIC="-I StdPeriphDriver/inc/ -I CMSIS/Include/"
 INCLUDES_LWIP="-I lwip-2.1.2/src/include -I lwip-2.1.2/src/include/lwip -I lwip-2.1.2/src/arch -I lwip-2.1.2/src/"
 INLCUDES="$INCLUDES_BASIC -I eth_hardware/inc/ -I Net/inc $INCLUDES_LWIP"
 
-
 file1="$TOOLCHAIN_GCC Main.c $INLCUDES -o build/main.o $GCC_FLAGS"
 echo $file1
 $file1
@@ -93,6 +92,83 @@ file="$TOOLCHAIN_GCC Net/src/lwipcomm.c $INLCUDES -o build/lwipcomm.o $GCC_FLAGS
 echo $file
 $file
 
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/ipv4/autoip.c $INLCUDES -o build/autoip.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/def.c $INLCUDES -o build/def.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/init.c $INLCUDES -o build/init.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/mem.c $INLCUDES -o build/mem.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/memp.c $INLCUDES -o build/memp.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/netif.c $INLCUDES -o build/netif.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/udp.c $INLCUDES -o build/udp.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/tcp.c $INLCUDES -o build/tcp.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/timeouts.c $INLCUDES -o build/timeouts.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/netif/ethernet.c $INLCUDES -o build/ethernet.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/pbuf.c $INLCUDES -o build/pbuf.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/ipv4/ip4.c $INLCUDES -o build/ip4.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=ip4_addr
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/ipv4/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=etharp
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/ipv4/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=inet_chksum
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=tcp_in
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=icmp
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/ipv4/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=tcp_out
+file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
 
 LINKER_FLAGS="-nostartfiles -Wl,--gc-sections -mcpu=cortex-m0 --specs=nano.specs"
 linker="$TOOLCHAIN_GCC build/*.o -T$LINKER_SCRIPT -o output.elf  -Xlinker -Map=output.map $LINKER_FLAGS"
