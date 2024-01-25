@@ -94,26 +94,26 @@ extern UINT8 phy_flag;
 
 
 //�շ���������
-typedef __packed struct _RXBUFST
+typedef struct __attribute__((__packed__)) _RXBUFST
 {
-    UINT8  RecvEn;                                  /* ʹ�ܿ��� */
-    UINT8  RecvIndex;                              /* MAC����ջ����������� */
-    UINT8  ReadIndex;                              /* ��ȡ������������ֵ */
-    UINT8  RemainCout;                          /* ʣ��δ��ȡ�����ݰ� */
-    UINT8  RxBufStau[RX_QUEUE_NUM];            /* ���ջ�������״̬ */
-    UINT16 RxBufLen[RX_QUEUE_NUM];            /* ���ջ��������ݵ���Ч���� */
-    UINT32 RxBufAddr[RX_QUEUE_NUM];           /* ���ջ���������ʼ��ַ */
+    UINT8  RecvEn;                                
+    UINT8  RecvIndex;                           
+    UINT8  ReadIndex;                          
+    UINT8  RemainCout;                       
+    UINT8  RxBufStau[RX_QUEUE_NUM];            
+    UINT16 RxBufLen[RX_QUEUE_NUM];           
+    UINT32 RxBufAddr[RX_QUEUE_NUM];        
 }RXBUFST;
 
-typedef __packed struct _TXBUFST
+typedef struct __attribute__((__packed__)) _TXBUFST
 {
-    UINT8  SendEn;                         /* ʹ�ܿ��� */
-    UINT8  SendIndex;                      /* MAC�㷢�ͻ����������� */
-    UINT8  WriteIndex;                     /* ���ͻ��������е�����ֵ */
-    UINT8  TxQueueCnt;                     /* ���Ͷ������Ŷӵ����� */
-    UINT8  TxBufStau[TX_QUEUE_NUM];         /* ���ͻ�������״̬ */
-    UINT16 TxBufLen[TX_QUEUE_NUM];         /* ���ͻ��������ݵ���Ч���� */
-    UINT32 TxBufAddr[TX_QUEUE_NUM];        /* ���ͻ���������ʼ��ַ */
+    UINT8  SendEn;                         
+    UINT8  SendIndex;                      
+    UINT8  WriteIndex;                     
+    UINT8  TxQueueCnt;                    
+    UINT8  TxBufStau[TX_QUEUE_NUM];         
+    UINT16 TxBufLen[TX_QUEUE_NUM];      
+    UINT32 TxBufAddr[TX_QUEUE_NUM];    
 }TXBUFST;
 
 
