@@ -1,6 +1,5 @@
+//Author https://gitee.com/maji19971221/lwip-routine
 //Modified by mztulip
-//based on https://gitee.com/maji19971221/lwip-routine
-
 #include "CH57x_common.h"
 #include <stdio.h>
 #include <string.h>
