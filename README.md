@@ -1,5 +1,7 @@
 # ch579m_ethernet
 
+Project is based on, another lwip port: https://gitee.com/maji19971221/lwip-routine
+
 
 Compile:
 ```
