@@ -1,28 +1,58 @@
-//Author mztulip
-//mateusz@tulip.lol
+//Modified by mztulip
+//based on https://gitee.com/maji19971221/lwip-routine
 
 #include "CH57x_common.h"
 #include <stdio.h>
+#include <string.h>
+#include "parameter_setting.h"
 
+#include  "mybufque.h"
+#include  "mych579mac.h"
+#include  "ethernetif.h"
+#include  "mytcpserver.h"
+
+u8  g_cur_eth_comm_chan = PROT_DATA_FROM_TCP;
+u8 g_eth_phy_link_state = 0;
+
+void tcp_Postback_test(void)
+{
+    e_buf_t *p_cur_ebuf = NULL;
+
+    p_cur_ebuf = get_valid_e_from_que_head(&g_eth_buf_que);
+
+    if(p_cur_ebuf!=NULL)
+    {
+        MyTcpSendData(p_cur_ebuf->buf, p_cur_ebuf->buf_len);
+        p_cur_ebuf->buf_len = 0; 
+        e_buf_num_sub_one(&g_eth_buf_que);
+    }
+}
 
 int main()
 { 
 	SystemInit();
-	
-	/* PB0-LED */
-    GPIOB_ModeCfg(GPIO_Pin_0, GPIO_ModeOut_PP_20mA);
-    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);
-    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA);
 
-    UART1_DefInit();
-    UART1_BaudRateCfg(9600);
+    PWR_UnitModCfg(ENABLE, (UNIT_SYS_PLL|UNIT_ETH_PHY)); 
+    DelayMs(3); 
+
+    SetSysClock(CLK_SOURCE_HSE_32MHz); 
+    InitTimer0();
+    DebugInit();
+    printf("Test\n");
+    SetDefaultEthUartCfg();
+    InitAppCommon();
+
+    lwip_comm_init(); 
+    TCP_server_init();
+    NETLed_Init();
 
     while(1)
     {
-        mDelaymS(500);
-        GPIOB_SetBits( GPIO_Pin_0 ); 
-        mDelaymS(500);
-        GPIOB_ResetBits( GPIO_Pin_0 );
+        tcp_Postback_test();
+        
+        lwip_pkt_handle();
+
+        lwip_periodic_handle();
     }
 }
 
