@@ -21,8 +21,8 @@
 #define   __ECHO_TCP_SERVER__    		0
 
 extern void   TCP_server_init(void);
-extern err_t  MyTcpSendData(u8 *dataBuf,     u16 dataSize);
-extern err_t  MyMacSendData(u8 *dataBuf,     u16 dataSize);
+extern err_t  MyTcpSendData(UINT8 *dataBuf,     UINT16 dataSize);
+extern err_t  MyMacSendData(UINT8 *dataBuf,     UINT16 dataSize);
 
 
 

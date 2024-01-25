@@ -1,7 +1,7 @@
 
 
 /****************************************************************
-CH579 MACÍ¨ÐÅÍ·ÎÄ¼þ
+CH579 MACÍ¨ï¿½ï¿½Í·ï¿½Ä¼ï¿½
 
 *****************************************************************/
 #ifndef   __MY_CH579_MAC_H__
@@ -17,8 +17,8 @@ CH579 MACÍ¨ÐÅÍ·ÎÄ¼þ
 
 
 extern  UINT8   myCh579MAC[];
-extern u8 phy_flag;
-//MACµØÖ·
+extern UINT8 phy_flag;
+//MACï¿½ï¿½Ö·
 #define R8_ETH_MAADR1           (*((PUINT8V)(ETH_BASE_ADDR+0x28)))              /* RW MAC Address Byte1 */
 #define R8_ETH_MAADR2           (*((PUINT8V)(ETH_BASE_ADDR+0x29)))              /* RW MAC Address Byte2 */
 #define R8_ETH_MAADR3           (*((PUINT8V)(ETH_BASE_ADDR+0x2a)))              /* RW MAC Address Byte3 */
@@ -27,29 +27,29 @@ extern u8 phy_flag;
 #define R8_ETH_MAADR6           (*((PUINT8V)(ETH_BASE_ADDR+0x2d))) 
 
 
-#define  RB_ETH_MIREGADR_MIIWR  	0x20        /* WO MII Ð´ÃüÁî */
+#define  RB_ETH_MIREGADR_MIIWR  	0x20        /* WO MII Ð´ï¿½ï¿½ï¿½ï¿½ */
 #define  RB_ETH_MIREGADR_MIRDL  	0x1f  
 
 
-//PHYµØÖ· 
+//PHYï¿½ï¿½Ö· 
 #define PHY_BMCR                0x00                 /* Control Register */
 #define PHY_BMSR                0x01                 /* Status Register */
 #define PHY_ANAR                0x04                 /* Auto-Negotiation Advertisement Register */
 #define PHY_ANLPAR              0x05                 /* Auto-Negotiation Link Partner Base  Page Ability Register*/
 #define PHY_ANER                0x06                 /* Auto-Negotiation Expansion Register */
-#define PHY_MDIX                0x1e                 /* ×Ô¶¨Òå MDIX Ä£Ê½¼Ä´æÆ÷ */
-//×Ô¶¨ÒåMDIXÄ£Ê½¼Ä´æÆ÷  @PHY_MDIX
-#define PN_NORMAL               0x04                 /* Ä£Äâp£¬n¼«ÐÔÑ¡Ôñ */
-#define MDIX_MODE_MASK          0x03                 /* mdixÉèÖÃ */
+#define PHY_MDIX                0x1e                 /* ï¿½Ô¶ï¿½ï¿½ï¿½ MDIX Ä£Ê½ï¿½Ä´ï¿½ï¿½ï¿½ */
+//ï¿½Ô¶ï¿½ï¿½ï¿½MDIXÄ£Ê½ï¿½Ä´ï¿½ï¿½ï¿½  @PHY_MDIX
+#define PN_NORMAL               0x04                 /* Ä£ï¿½ï¿½pï¿½ï¿½nï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ */
+#define MDIX_MODE_MASK          0x03                 /* mdixï¿½ï¿½ï¿½ï¿½ */
 #define MDIX_MODE_AUTO          0x00                 /*  */
 #define MDIX_MODE_MDIX          0x01
 #define MDIX_MODE_MDI           0x02
-//ECON2²âÊÔÄ£Ê½£¬´ý¶¨  
+//ECON2ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 #define RX_VCM_MODE_0
 #define RX_VCM_MODE_1
 #define RX_VCM_MODE_2
 #define RX_VCM_MODE_3
-//RX ²Î¿¼µçÑ¹Öµ ÉèÖÃ  @RX_REF
+//RX ï¿½Î¿ï¿½ï¿½ï¿½Ñ¹Öµ ï¿½ï¿½ï¿½ï¿½  @RX_REF
 #define RX_REF_25mV             (0<<2)              /* 25mV */
 #define RX_REF_49mV             (1<<2)              /* 49mV */
 #define RX_REF_74mV             (2<<2)              /* 74mV */
@@ -58,62 +58,62 @@ extern u8 phy_flag;
 #define RX_REF_148mV            (5<<2)              /* 148mV */
 #define RX_REF_173mV            (6<<2)              /* 173mV */
 #define RX_REF_198mV            (7<<2)              /* 198mV */
-//TX DRIVER Æ«ÖÃµçÁ÷  @TX_AMP
+//TX DRIVER Æ«ï¿½Ãµï¿½ï¿½ï¿½  @TX_AMP
 #define TX_AMP_0                (0<<0)              /* 43mA   / 14.5mA   (1.4V/0.7V) */
 #define TX_AMP_1                (1<<0)              /* 53.1mA / 18mA     (1.8V/0.9V) */
 #define TX_AMP_2                (2<<0)              /* 75.6mA / 25.6mA   (2.6V/1.3V) */
 #define TX_AMP_3                (3<<0)                                          /* 122mA  / 41.45mA  (4.1V/2.3V) */
-//FCENÔÝÍ£Ö¡¿ØÖÆ      @FCEN
-#define FCEN_0_TIMER            (3<<4)              /* ·¢ËÍ 0 timer ÔÝÍ£Ö¡£¬È»ºóÍ£Ö¹·¢ËÍ */
-#define FCEN_CYCLE              (2<<4)              /* ÖÜÆÚÐÔ·¢ËÍÔÝÍ£Ö¡ */
-#define FCEN_ONCE               (1<<4)              /* ·¢ËÍÒ»´ÎÔÝÍ£Ö¡£¬È»ºóÍ£Ö¹·¢ËÍ */
-#define FCEN_STOP               (0<<4)              /* Í£Ö¹·¢ËÍÔÝÍ£Ö¡ */
-//PADCFG¶Ì°ü¿ØÖÆ  @PADCFG
-#define PADCFG_AUTO_0           (7<<5)              /* ËùÓÐ¶Ì°üÌî³ä00hÖÁ64×Ö½Ú£¬ÔÙ4×Ö½Úcrc */
-#define PADCFG_NO_ACT_0         (6<<5)              /* ²»Ìî³ä¶Ì°ü */
-#define PADCFG_DETE_AUTO        (5<<5)             /* ¼ì²âµ½×Ö¶ÎÎª8100hµÄVLANÍøÂç°ü×Ô¶¯Ìî³ä00hÖÁ64×Ö½Ú£¬·ñÔò¶Ì°üÌî³ä60×Ö½Ú0£¬Ìî³äºóÔÙ4×Ö½Úcrc */
-#define PADCFG_NO_ACT_1         (4<<5)             /* ²»Ìî³ä¶Ì°ü */
+//FCENï¿½ï¿½Í£Ö¡ï¿½ï¿½ï¿½ï¿½      @FCEN
+#define FCEN_0_TIMER            (3<<4)              /* ï¿½ï¿½ï¿½ï¿½ 0 timer ï¿½ï¿½Í£Ö¡ï¿½ï¿½È»ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½ */
+#define FCEN_CYCLE              (2<<4)              /* ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¡ */
+#define FCEN_ONCE               (1<<4)              /* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Í£Ö¡ï¿½ï¿½È»ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½ */
+#define FCEN_STOP               (0<<4)              /* Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¡ */
+//PADCFGï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½  @PADCFG
+#define PADCFG_AUTO_0           (7<<5)              /* ï¿½ï¿½ï¿½Ð¶Ì°ï¿½ï¿½ï¿½ï¿½00hï¿½ï¿½64ï¿½Ö½Ú£ï¿½ï¿½ï¿½4ï¿½Ö½ï¿½crc */
+#define PADCFG_NO_ACT_0         (6<<5)              /* ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ */
+#define PADCFG_DETE_AUTO        (5<<5)             /* ï¿½ï¿½âµ½ï¿½Ö¶ï¿½Îª8100hï¿½ï¿½VLANï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½00hï¿½ï¿½64ï¿½Ö½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ï¿½ï¿½ï¿½60ï¿½Ö½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½Ö½ï¿½crc */
+#define PADCFG_NO_ACT_1         (4<<5)             /* ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ */
 #define PADCFG_AUTO_1           (3<<5)             /* Í¬111 */
-#define PADCFG_NO_ACT_2         (2<<5)             /* ²»Ìî³ä¶Ì°ü */
-#define PADCFG_AUTO_3           (1<<5)             /* ËùÓÐ¶Ì°üÌî³ä00hÖÁ60×Ö½Ú£¬ÔÙ4×Ö½Úcrc */
-#define PADCFG_NO_ACT_3         (0<<5)            /* ²»Ìî³ä¶Ì°ü */
+#define PADCFG_NO_ACT_2         (2<<5)             /* ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ */
+#define PADCFG_AUTO_3           (1<<5)             /* ï¿½ï¿½ï¿½Ð¶Ì°ï¿½ï¿½ï¿½ï¿½00hï¿½ï¿½60ï¿½Ö½Ú£ï¿½ï¿½ï¿½4ï¿½Ö½ï¿½crc */
+#define PADCFG_NO_ACT_3         (0<<5)            /* ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ */
 
 
-//ÍøÂçÊÕ·¢MAC²ãÅäÖÃ 1536
-#define ETHER_HEAD_LEN          14                 /* ÍøÂçÖ¡Í·³¤¶È */
+//ï¿½ï¿½ï¿½ï¿½ï¿½Õ·ï¿½MACï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1536
+#define ETHER_HEAD_LEN          14                 /* ï¿½ï¿½ï¿½ï¿½Ö¡Í·ï¿½ï¿½ï¿½ï¿½ */
 #define MACADDR_LEN             6
-#define MAC_MAX_LEN             1064          /* MAC²ã×î´ó°ü³¤¶È   576     1536 */
-#define RX_MAX_BUF_LEN          1064          /* ×î´ó½ÓÊÕ°üÊý¾Ý³¤¶È */
-#define RX_BUF_SIZE             1064          /* ½ÓÊÕ»º´æ´óÐ¡ */
-#define TX_BUF_SIZE             1064          /* ·¢ËÍ»º´æ´óÐ¡ */
-#define RX_QUEUE_NUM            3            /* ½ÓÊÕ»º³åÇø¶ÓÁÐÊý */
+#define MAC_MAX_LEN             1064          /* MACï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   576     1536 */
+#define RX_MAX_BUF_LEN          1064          /* ï¿½ï¿½ï¿½ï¿½ï¿½Õ°ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½ */
+#define RX_BUF_SIZE             1064          /* ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ð¡ */
+#define TX_BUF_SIZE             1064          /* ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ð¡ */
+#define RX_QUEUE_NUM            3            /* ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 #define TX_QUEUE_NUM            2          
 
 
 #define  MAX_FRAMELEN			(MAC_MAX_LEN-18)
 
 
-//ÊÕ·¢¹ÜÀí¶¨Òå
+//ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef __packed struct _RXBUFST
 {
-    UINT8  RecvEn;                                  /* Ê¹ÄÜ¿ØÖÆ */
-    UINT8  RecvIndex;                              /* MAC²ã½ÓÊÕ»º³åÇøµÄË÷Òý */
-    UINT8  ReadIndex;                              /* ¶ÁÈ¡»º³åÇøµÄË÷ÒýÖµ */
-    UINT8  RemainCout;                          /* Ê£ÓàÎ´¶ÁÈ¡µÄÊý¾Ý°ü */
-    UINT8  RxBufStau[RX_QUEUE_NUM];            /* ½ÓÊÕ»º³åÇøµÄ×´Ì¬ */
-    UINT16 RxBufLen[RX_QUEUE_NUM];            /* ½ÓÊÕ»º³åÇøÊý¾ÝµÄÓÐÐ§³¤¶È */
-    UINT32 RxBufAddr[RX_QUEUE_NUM];           /* ½ÓÊÕ»º³åÇøµÄÆðÊ¼µØÖ· */
+    UINT8  RecvEn;                                  /* Ê¹ï¿½Ü¿ï¿½ï¿½ï¿½ */
+    UINT8  RecvIndex;                              /* MACï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    UINT8  ReadIndex;                              /* ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ */
+    UINT8  RemainCout;                          /* Ê£ï¿½ï¿½Î´ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ */
+    UINT8  RxBufStau[RX_QUEUE_NUM];            /* ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ */
+    UINT16 RxBufLen[RX_QUEUE_NUM];            /* ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ */
+    UINT32 RxBufAddr[RX_QUEUE_NUM];           /* ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö· */
 }RXBUFST;
 
 typedef __packed struct _TXBUFST
 {
-    UINT8  SendEn;                         /* Ê¹ÄÜ¿ØÖÆ */
-    UINT8  SendIndex;                      /* MAC²ã·¢ËÍ»º³åÇøµÄË÷Òý */
-    UINT8  WriteIndex;                     /* ·¢ËÍ»º³åÇø¿ÕÏÐµÄË÷ÒýÖµ */
-    UINT8  TxQueueCnt;                     /* ·¢ËÍ¶ÓÁÐÖÐÅÅ¶ÓµÄÊýÁ¿ */
-    UINT8  TxBufStau[TX_QUEUE_NUM];         /* ·¢ËÍ»º³åÇøµÄ×´Ì¬ */
-    UINT16 TxBufLen[TX_QUEUE_NUM];         /* ·¢ËÍ»º³åÇøÊý¾ÝµÄÓÐÐ§³¤¶È */
-    UINT32 TxBufAddr[TX_QUEUE_NUM];        /* ·¢ËÍ»º³åÇøµÄÆðÊ¼µØÖ· */
+    UINT8  SendEn;                         /* Ê¹ï¿½Ü¿ï¿½ï¿½ï¿½ */
+    UINT8  SendIndex;                      /* MACï¿½ã·¢ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    UINT8  WriteIndex;                     /* ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Öµ */
+    UINT8  TxQueueCnt;                     /* ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶Óµï¿½ï¿½ï¿½ï¿½ï¿½ */
+    UINT8  TxBufStau[TX_QUEUE_NUM];         /* ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ */
+    UINT16 TxBufLen[TX_QUEUE_NUM];         /* ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ */
+    UINT32 TxBufAddr[TX_QUEUE_NUM];        /* ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö· */
 }TXBUFST;
 
 

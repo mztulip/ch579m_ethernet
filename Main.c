@@ -11,8 +11,8 @@
 #include  "ethernetif.h"
 #include  "mytcpserver.h"
 
-u8  g_cur_eth_comm_chan = PROT_DATA_FROM_TCP;
-u8 g_eth_phy_link_state = 0;
+UINT8  g_cur_eth_comm_chan = PROT_DATA_FROM_TCP;
+UINT8 g_eth_phy_link_state = 0;
 
 void tcp_Postback_test(void)
 {

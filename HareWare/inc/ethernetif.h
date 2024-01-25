@@ -2,7 +2,7 @@
 
 /*
 
-  ÍøÂç½Ó¿ÚÍ·ÎÄ¼þ
+  ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½Í·ï¿½Ä¼ï¿½
   
 */
 
@@ -28,7 +28,7 @@ extern   struct netif  lwip_netif;
 extern void  ethernetif_input(struct netif *netif);
 extern err_t ethernetif_init(struct netif *netif);
 
-extern u8    lwip_comm_init(void);
+extern UINT8    lwip_comm_init(void);
 extern void  lwip_pkt_handle(void);
 extern void  lwip_periodic_handle(void);
 

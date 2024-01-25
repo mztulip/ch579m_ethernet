@@ -20,7 +20,10 @@ echo $TOOLCHAIN_GCC
 #-ffunction-sections => Place each function or data item into its own section in the output file if the target supports arbitrary sections. The name of the function or the name of the data item determines the section’s name in the output file. 
 # -mthumb => Select between generating code that executes in ARM and Thumb states
 GCC_FLAGS="-c -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m0 -g -mfloat-abi=soft"
-INLCUDES="-I StdPeriphDriver/inc/ -I CMSIS/Include/ -I HareWare/inc/ -I Net/inc"
+INCLUDES_BASIC="-I StdPeriphDriver/inc/ -I CMSIS/Include/"
+INCLUDES_LWIP="-I lwip-2.1.2/src/include -I lwip-2.1.2/src/include/lwip -I lwip-2.1.2/src/arch -I lwip-2.1.2/src/"
+INLCUDES="$INCLUDES_BASIC -I HareWare/inc/ -I Net/inc $INCLUDES_LWIP"
+
 
 file1="$TOOLCHAIN_GCC Main.c $INLCUDES -o build/main.o $GCC_FLAGS"
 echo $file1
