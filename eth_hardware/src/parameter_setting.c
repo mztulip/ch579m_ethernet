@@ -33,7 +33,7 @@ Timer0    10ms
 *************************************************************************/
 void InitTimer0(void)
 {
-	TMR0_TimerInit((10000*32));  //10ms 
+  TMR0_TimerInit((10000*32));  //10ms 
   TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END); 
   NVIC_EnableIRQ(TMR0_IRQn);
 }

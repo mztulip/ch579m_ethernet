@@ -41,7 +41,7 @@
 #include <lwip/sys.h>
 
 #include "parameter_setting.h"
-u32  g_lwip_localtime = 0;   //lwip本地时间计数器,单位:ms
+UINT32  g_lwip_localtime = 0;   
 
 
 u32_t sys_now()
