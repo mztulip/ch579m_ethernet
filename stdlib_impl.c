@@ -41,8 +41,6 @@ _sbrk (int nbytes)
   }
 }
 
-
-
 int
 _close (int   file)
 {
@@ -69,8 +67,6 @@ _read (int   file,
 
 } 
 
-
-
 int
 _fstat (int          file,
         struct stat *st)
@@ -92,6 +88,7 @@ void
 _exit (int  rc)
 {
  Default_Handler();
+ while(1){}
 } 
 
 int
