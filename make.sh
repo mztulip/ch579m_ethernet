@@ -77,7 +77,7 @@ file="$TOOLCHAIN_GCC stdlib_impl.c $INLCUDES -o build/stdlib_impl.o $GCC_FLAGS"
 echo $file
 $file
 
-file="$TOOLCHAIN_GCC eth_hardware/mybufque.c $INLCUDES -o build/mybufque.o $GCC_FLAGS"
+file="$TOOLCHAIN_GCC eth_hardware/src/mybufque.c $INLCUDES -o build/mybufque.o $GCC_FLAGS"
 echo $file
 $file
 
