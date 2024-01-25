@@ -96,17 +96,17 @@ static void  low_level_init(struct netif *netif)
   /* maximum transfer unit */
 
   /*
-    ÒÔÌ«ÍøÊý¾Ý°ü=Ä¿µÄµØÖ·£¨6×Ö½Ú£©+Ô´µØÖ·£¨6×Ö½Ú£©+ÀàÐÍ£¨2×Ö½Ú£©+ÍøÂç²ãÊý¾Ý£¨n×Ö½Ú£©+CRCÐ£ÑéÂë£¨4×Ö½Ú£©£¬18+n¡Ü1518£¬ËùÒÔn¡Ü1500¡£
+    ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½=Ä¿ï¿½Äµï¿½Ö·ï¿½ï¿½6ï¿½Ö½Ú£ï¿½+Ô´ï¿½ï¿½Ö·ï¿½ï¿½6ï¿½Ö½Ú£ï¿½+ï¿½ï¿½ï¿½Í£ï¿½2ï¿½Ö½Ú£ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½nï¿½Ö½Ú£ï¿½+CRCÐ£ï¿½ï¿½ï¿½ë£¨4ï¿½Ö½Ú£ï¿½ï¿½ï¿½18+nï¿½ï¿½1518ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½ï¿½1500ï¿½ï¿½
 
-	ÒÔÌ«ÍøÊý¾Ý°ü = ÍøÂç²ãÊý¾Ý³¤¶È+18
+	ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½+18
 
-	mtu: ÍøÂç²ãÊý¾Ý³¤¶È
+	mtu: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
 
   */
   netif->mtu = MAX_FRAMELEN;
 
 
-  //³õÊ¼»¯ÒÔÌ«Íø½Ó¿Ú
+  //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½ï¿½Ó¿ï¿½
   ETHParaInitX();
   ETHInitX();
 
@@ -157,8 +157,8 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
     //send data from(q->payload, q->len);
 
 		//printf("low q->len:%d\r\n", q->len);
-		//ShowDataHex((u8 *)q->payload, q->len);
-		snd_status = ETHSendX(q->payload, q->len); //·¢ËÍÒ»¸öMACÖ¡Êý¾Ý
+		//ShowDataHex((UINT8*)q->payload, q->len);
+		snd_status = ETHSendX(q->payload, q->len); //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½MACÖ¡ï¿½ï¿½ï¿½ï¿½
   }
 
   return  (err_t)snd_status;
@@ -167,7 +167,7 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 
 
 
-err_t  MyMacSendData(u8 *dataBuf,     u16 dataSize)
+err_t  MyMacSendData(UINT8*dataBuf,     UINT16 dataSize)
 {
 
 	u16_t framelen = 0;
@@ -175,20 +175,20 @@ err_t  MyMacSendData(u8 *dataBuf,     u16 dataSize)
 
 	//memcpy(gMacFrameBuf, dataBuf,  dataSize);
 
-  	//±àÂëÄ¿±êMACµØÖ·
-	memcpy(&dataBuf[1], gMyPeerMac,6);  		//Ä¿±êMACµØÖ·
-	memcpy(&dataBuf[7],lwip_netif.hwaddr,6);  		//Ô´MACµØÖ·
+  	//ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½MACï¿½ï¿½Ö·
+	memcpy(&dataBuf[1], gMyPeerMac,6);  		//Ä¿ï¿½ï¿½MACï¿½ï¿½Ö·
+	memcpy(&dataBuf[7],lwip_netif.hwaddr,6);  		//Ô´MACï¿½ï¿½Ö·
 
 	 dataBuf[13]  = 0xaa;
 	 dataBuf[14]  = 0xaa;
 
-	//Êý¾Ý³¤¶È¸ßÎ» ,MACÖ¡Êý¾ÝÓò³¤¶È²»°üÀ¨MACÖ¡Í·
-	 dataBuf[15] = ((dataSize-16)>>8)&0xff;  //ÏÈ¸ßÎ»
-	 dataBuf[16] =  (dataSize-16)&0xff;  //ºóµÍÎ»
+	//ï¿½ï¿½ï¿½Ý³ï¿½ï¿½È¸ï¿½Î» ,MACÖ¡ï¿½ï¿½ï¿½ï¿½ï¿½ò³¤¶È²ï¿½ï¿½ï¿½ï¿½ï¿½MACÖ¡Í·
+	 dataBuf[15] = ((dataSize-16)>>8)&0xff;  //ï¿½È¸ï¿½Î»
+	 dataBuf[16] =  (dataSize-16)&0xff;  //ï¿½ï¿½ï¿½Î»
 
 	 framelen = dataSize; 
 
-	 snd_status = ETHSendX((u8 *)&dataBuf[1], framelen);
+	 snd_status = ETHSendX((UINT8*)&dataBuf[1], framelen);
 	
 
 	return (err_t)snd_status;;
@@ -210,7 +210,7 @@ static struct pbuf *low_level_input(struct netif *netif)
   struct pbuf *p = NULL;
 
   struct pbuf *q = NULL;
-  static u8 led_count=0; 
+  static UINT8 led_count=0; 
   u16_t len = 0;
 
   /* Obtain the size of the packet and put it into the "len"
@@ -236,7 +236,7 @@ static struct pbuf *low_level_input(struct netif *netif)
 	}
   if(len == 0)
   {
-  	 	//Ã»ÓÐÊý¾Ý½ÓÊÕ
+  	 	//Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½
 
 	 	return NULL;
   }
