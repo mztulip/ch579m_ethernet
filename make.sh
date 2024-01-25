@@ -22,7 +22,7 @@ echo $TOOLCHAIN_GCC
 GCC_FLAGS="-c -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m0 -g -mfloat-abi=soft"
 INCLUDES_BASIC="-I StdPeriphDriver/inc/ -I CMSIS/Include/"
 INCLUDES_LWIP="-I lwip-2.1.2/src/include -I lwip-2.1.2/src/include/lwip -I lwip-2.1.2/src/arch -I lwip-2.1.2/src/"
-INLCUDES="$INCLUDES_BASIC -I HareWare/inc/ -I Net/inc $INCLUDES_LWIP"
+INLCUDES="$INCLUDES_BASIC -I eth_hardware/inc/ -I Net/inc $INCLUDES_LWIP"
 
 
 file1="$TOOLCHAIN_GCC Main.c $INLCUDES -o build/main.o $GCC_FLAGS"
@@ -74,6 +74,10 @@ echo $file
 $file
 
 file="$TOOLCHAIN_GCC stdlib_impl.c $INLCUDES -o build/stdlib_impl.o $GCC_FLAGS"
+echo $file
+$file
+
+file="$TOOLCHAIN_GCC eth_hardware/mybufque.c $INLCUDES -o build/mybufque.o $GCC_FLAGS"
 echo $file
 $file
 
