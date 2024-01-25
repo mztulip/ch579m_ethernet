@@ -81,6 +81,10 @@ file="$TOOLCHAIN_GCC eth_hardware/src/mybufque.c $INLCUDES -o build/mybufque.o $
 echo $file
 $file
 
+file="$TOOLCHAIN_GCC Net/src/mytcpserver.c $INLCUDES -o build/mytcpserver.o $GCC_FLAGS"
+echo $file
+$file
+
 LINKER_FLAGS="-nostartfiles -Wl,--gc-sections -mcpu=cortex-m0 --specs=nano.specs"
 linker="$TOOLCHAIN_GCC build/*.o -T$LINKER_SCRIPT -o output.elf  -Xlinker -Map=output.map $LINKER_FLAGS"
 echo $linker

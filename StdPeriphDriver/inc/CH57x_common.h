@@ -18,7 +18,6 @@
 #endif
 
 
-#define  NULL			0
 #define  ALL			0xFFFF
 
 #ifndef	 SUCCESS	 	 
@@ -45,7 +44,7 @@
 #endif   
 
 /**
- * @brief  32KÊ±ÖÓ£¨Hz£©
+ * @brief  32KÊ±ï¿½Ó£ï¿½Hzï¿½ï¿½
  */
 #ifdef CLK_OSC32K
 #if ( CLK_OSC32K == 1 )

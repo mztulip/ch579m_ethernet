@@ -1,7 +1,7 @@
 
 
 /*
- Tcp Server ·þÎñÆ÷´úÂë
+ Tcp Server ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 
 
@@ -13,7 +13,7 @@
 
 
 
-//ÐÂ¿Í»§¶ËTCPÁ¬½Ó,ÓÃÓÚÏò¿Í»§¶Ë·¢ËÍÊý¾Ý,ÀàËÆsocket,
+//ï¿½Â¿Í»ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½socket,
 static struct tcp_pcb *gNewClientPcb = NULL;
 
 
@@ -43,7 +43,7 @@ err_t  raw_mac_recv(struct pbuf *p, struct netif *netif)
 				curDataLen = px->len - 16;
 
 				copy_len=(curDataLen < MQE_BUF_SIZE)?curDataLen:MQE_BUF_SIZE;
-				memcpy((u8 *)p_in_ebuf->buf,(u8 *)(pu8data+16), copy_len);
+				memcpy((UINT8*)p_in_ebuf->buf,(UINT8*)(pu8data+16), copy_len);
 				p_in_ebuf->buf_len = copy_len;
 			}
 
@@ -54,7 +54,7 @@ err_t  raw_mac_recv(struct pbuf *p, struct netif *netif)
 			if(p_in_ebuf != NULL)
 			{
 				copy_len=(px->len < MQE_BUF_SIZE)?px->len:MQE_BUF_SIZE;
-				memcpy((u8 *)&p_in_ebuf->buf[p_in_ebuf->buf_len],pu8data, copy_len);
+				memcpy((UINT8*)&p_in_ebuf->buf[p_in_ebuf->buf_len],pu8data, copy_len);
 				p_in_ebuf->buf_len += copy_len;
 			}
 
@@ -75,15 +75,15 @@ err_t  raw_mac_recv(struct pbuf *p, struct netif *netif)
 
 
 /***********************************************************************
-º¯ÊýÃû³Æ£ºtcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t err)
-¹¦    ÄÜ£ºTCPÊý¾Ý½ÓÊÕºÍ·¢ËÍ
-ÊäÈë²ÎÊý£º
-Êä³ö²ÎÊý£º
-                 pcb-->½ÓÊÕµ½Êý¾ÝµÄTCPÁ¬½Ó
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½tcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t err)
+ï¿½ï¿½    ï¿½Ü£ï¿½TCPï¿½ï¿½ï¿½Ý½ï¿½ï¿½ÕºÍ·ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                 pcb-->ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½Ýµï¿½TCPï¿½ï¿½ï¿½ï¿½
                  
-±àÐ´Ê±¼ä£º2013.4.25
-±à Ð´ ÈË£º
-×¢    Òâ£ºÕâÊÇÒ»¸ö»Øµ÷º¯Êý£¬µ±Ò»¸öTCP¶Îµ½´ïÕâ¸öÁ¬½ÓÊ±»á±»µ÷ÓÃ
+ï¿½ï¿½Ð´Ê±ï¿½ä£º2013.4.25
+ï¿½ï¿½ Ð´ ï¿½Ë£ï¿½
+×¢    ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½TCPï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½á±»ï¿½ï¿½ï¿½ï¿½
 ***********************************************************************/
 static err_t tcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t err)
 {
@@ -95,14 +95,14 @@ static err_t tcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t
 	if(p != NULL)
 	{
 	
-		 //½«Êý¾Ý±£´æµ½TCPÓ¦ÓÃ²ã»º³åÇø
+		 //ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½æµ½TCPÓ¦ï¿½Ã²ã»ºï¿½ï¿½ï¿½ï¿½
 		  px = p;
 		  while(px != NULL)
 		  {
 
 				if(px == p)
 				{
-					//½ÓÊÕµÚ1¸ö Êý¾Ý°ü£¬ÉêÇë½ÓÊÕ»º³åÇø
+					//ï¿½ï¿½ï¿½Õµï¿½1ï¿½ï¿½ ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½
 					p_in_ebuf = get_idle_e_from_que_tail(&g_eth_buf_que);
 				}
 
@@ -111,7 +111,7 @@ static err_t tcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t
 					
 					if((p_in_ebuf->buf_len + px->len) <= MQE_BUF_SIZE)
 					{
-						memcpy((u8 *)&p_in_ebuf->buf[p_in_ebuf->buf_len],(u8 *)px->payload, px->len);
+						memcpy((UINT8*)&p_in_ebuf->buf[p_in_ebuf->buf_len],(UINT8*)px->payload, px->len);
 						p_in_ebuf->buf_len += px->len;
 					}
 					
@@ -130,15 +130,15 @@ static err_t tcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t
 		  g_cur_eth_comm_chan = PROT_DATA_FROM_TCP;
 		  e_buf_num_add_one(&g_eth_buf_que);
 
-		  //Êý¾Ý½ÓÊÕÍê³É£¬»Ö¸´Ô­À´´°¿Ú´óÐ¡,Êý¾Ý½ÓÊÕÍê³Éºó£¬±ØÐëµ÷ÓÃ¸Ãº¯Êý
+		  //ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½Ö¸ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ð¡,ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½Éºó£¬±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸Ãºï¿½ï¿½ï¿½
 		  tcp_recved(pcb, p->tot_len);  
-		  	/* ÊÍ·Å¸ÃTCP¶Î */
+		  	/* ï¿½Í·Å¸ï¿½TCPï¿½ï¿½ */
 		  pbuf_free(p); 
 								
 	}
 	else
 	{
-		//p ÎªNULL,±íÊ¾TCPÁ¬½ÓÒÑ¾­¹Ø±Õ
+		//p ÎªNULL,ï¿½ï¿½Ê¾TCPï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ø±ï¿½
 
 		//printf("now tcp close....\r\n");
 		tcp_close(pcb); 
@@ -156,18 +156,18 @@ static err_t tcp_server_recv(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t
 
 
 /***********************************************************************
-º¯ÊýÃû³Æ£ºtcp_server_accept(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t err)
-¹¦    ÄÜ£º»Øµ÷º¯Êý
-ÊäÈë²ÎÊý£º
-Êä³ö²ÎÊý£º
-±àÐ´Ê±¼ä£º2013.4.25
-±à Ð´ ÈË£º
-×¢    Òâ£ºÕâÊÇÒ»¸ö»Øµ÷º¯Êý£¬µ±Ò»¸öÁ¬½ÓÒÑ¾­½ÓÊÜÊ±»á±»µ÷ÓÃ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½tcp_server_accept(void *arg, struct tcp_pcb *pcb,struct pbuf *p,err_t err)
+ï¿½ï¿½    ï¿½Ü£ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½Ð´Ê±ï¿½ä£º2013.4.25
+ï¿½ï¿½ Ð´ ï¿½Ë£ï¿½
+×¢    ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½á±»ï¿½ï¿½ï¿½ï¿½
 ***********************************************************************/
 static err_t tcp_server_accept(void *arg,struct tcp_pcb *pcb, err_t err)
 {
-	tcp_setprio(pcb, TCP_PRIO_MIN);    /* ÉèÖÃ»Øµ÷º¯ÊýÓÅÏÈ¼¶£¬µ±´æÔÚ¼¸¸öÁ¬½ÓÊ±ÌØ±ðÖØÒª,´Ëº¯Êý±ØÐëµ÷ÓÃ*/
-	tcp_recv(pcb,tcp_server_recv); 	   /* ÉèÖÃTCP¶Îµ½Ê±µÄ»Øµ÷º¯Êý */
+	tcp_setprio(pcb, TCP_PRIO_MIN);    /* ï¿½ï¿½ï¿½Ã»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ø±ï¿½ï¿½ï¿½Òª,ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	tcp_recv(pcb,tcp_server_recv); 	   /* ï¿½ï¿½ï¿½ï¿½TCPï¿½Îµï¿½Ê±ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ */
 
 	if(gNewClientPcb == NULL)
 	{
@@ -175,7 +175,7 @@ static err_t tcp_server_accept(void *arg,struct tcp_pcb *pcb, err_t err)
 	}
 	else
 	{
-		//ÉÏ´ÎÁ¬½Ó»¹Ã»ÓÐ¹Ø±Õ µÈ´ýÉÏ´ÎÁ¬½Ó¹Ø±Õ
+		//ï¿½Ï´ï¿½ï¿½ï¿½ï¿½Ó»ï¿½Ã»ï¿½Ð¹Ø±ï¿½ ï¿½È´ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½Ó¹Ø±ï¿½
 		//printf("wait tcp close..\r\n");
 		tcp_close(pcb); 
 		
@@ -188,30 +188,30 @@ static err_t tcp_server_accept(void *arg,struct tcp_pcb *pcb, err_t err)
 
 
 /***********************************************************************
-º¯ÊýÃû³Æ£ºTCP_server_init(void)
-¹¦    ÄÜ£ºÍê³ÉTCP·þÎñÆ÷µÄ³õÊ¼»¯£¬Ö÷ÒªÊÇÊ¹µÃTCPÍ¨Ñ¶¿ì½øÈë¼àÌý×´Ì¬
-ÊäÈë²ÎÊý£º
-Êä³ö²ÎÊý£º
-±àÐ´Ê±¼ä£º2013.4.25
-±à Ð´ ÈË£º
-×¢    Òâ£º
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½TCP_server_init(void)
+ï¿½ï¿½    ï¿½Ü£ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê¹ï¿½ï¿½TCPÍ¨Ñ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½Ð´Ê±ï¿½ä£º2013.4.25
+ï¿½ï¿½ Ð´ ï¿½Ë£ï¿½
+×¢    ï¿½â£º
 ***********************************************************************/
 
-static struct tcp_pcb *gServerPcb;  //Ïàµ±ÓÚ·þÎñTCP SOCKET
+static struct tcp_pcb *gServerPcb;  //ï¿½àµ±ï¿½Ú·ï¿½ï¿½ï¿½TCP SOCKET
 void TCP_server_init(void)
 { 
 	err_t  err;
 
 	/*****************************************************/
-	gServerPcb = tcp_new(); 								/* ½¨Á¢Í¨ÐÅµÄTCP¿ØÖÆ¿é(pcb) */
+	gServerPcb = tcp_new(); 								/* ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Åµï¿½TCPï¿½ï¿½ï¿½Æ¿ï¿½(pcb) */
 
 	if(gServerPcb != NULL)
 	{
-		err = tcp_bind(gServerPcb,IP_ADDR_ANY, MY_ETH_PORT); 	    /* °ó¶¨±¾µØIPµØÖ·ºÍ¶Ë¿ÚºÅ£¨×÷Îªtcp·þÎñÆ÷£©  */
+		err = tcp_bind(gServerPcb,IP_ADDR_ANY, MY_ETH_PORT); 	    /* ï¿½ó¶¨±ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·ï¿½Í¶Ë¿ÚºÅ£ï¿½ï¿½ï¿½Îªtcpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  */
 		if(err == ERR_OK)
 		{
-			gServerPcb = tcp_listen(gServerPcb); 		/* ½øÈë¼àÌý×´Ì¬ */
-			tcp_accept(gServerPcb,tcp_server_accept); 			    /* ÉèÖÃÓÐÁ¬½ÓÇëÇóÊ±µÄ»Øµ÷º¯Êý */
+			gServerPcb = tcp_listen(gServerPcb); 		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ */
+			tcp_accept(gServerPcb,tcp_server_accept); 			    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½ */
 		}
 		else
 		{
@@ -225,8 +225,8 @@ void TCP_server_init(void)
 						
 }
 
-//Í¨¹ýlwip tcp·¢ËÍÊý¾Ý
-err_t  MyTcpSendData(u8 *dataBuf,     u16 dataSize)
+//Í¨ï¿½ï¿½lwip tcpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+err_t  MyTcpSendData(UINT8*dataBuf,     UINT16 dataSize)
 {
 	err_t err_ret = 0;
 	err_ret = tcp_write(gNewClientPcb,(void *)dataBuf,dataSize,TCP_WRITE_FLAG_COPY);
