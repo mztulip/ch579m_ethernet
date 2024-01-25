@@ -85,4 +85,27 @@ _isatty (int   file)
 {
   return  1;
 
+}
+
+void Default_Handler(void);
+void 
+_exit (int  rc)
+{
+ Default_Handler();
+} 
+
+int
+_kill (int  pid,
+       int  sig)
+{
+  errno = EINVAL;
+  return -1;                    /* Always fails */
+
+} 
+
+int
+_getpid ()
+{
+  return  1;                            /* Success */
+
 }  
