@@ -85,6 +85,10 @@ file="$TOOLCHAIN_GCC Net/src/mytcpserver.c $INLCUDES -o build/mytcpserver.o $GCC
 echo $file
 $file
 
+file="$TOOLCHAIN_GCC eth_hardware/src/parameter_setting.c $INLCUDES -o build/parameter_setting.o $GCC_FLAGS"
+echo $file
+$file
+
 LINKER_FLAGS="-nostartfiles -Wl,--gc-sections -mcpu=cortex-m0 --specs=nano.specs"
 linker="$TOOLCHAIN_GCC build/*.o -T$LINKER_SCRIPT -o output.elf  -Xlinker -Map=output.map $LINKER_FLAGS"
 echo $linker
