@@ -1,35 +1,35 @@
 
 
 /************************************************************
-CH579 mac Í¨ÐÅ
+CH579 mac Í¨
 
 *************************************************************/
 
 #include "mych579mac.h"
 
 #include "parameter_setting.h"
-static  RXBUFST   ETHRxMagPara;   //½ÓÊÕ¹ÜÀí²ÎÊý
-static  TXBUFST   ETHTxMagPara;   //·¢ËÍ¹ÜÀí²ÎÊý
+static  RXBUFST   ETHRxMagPara;   
+static  TXBUFST   ETHTxMagPara; 
 
 
-static  __align(4) UINT8     MACRxBuf[RX_QUEUE_NUM][RX_BUF_SIZE];   /* MAC½ÓÊÕ»º³åÇø£¬4×Ö½Ú¶ÔÆë */ 
-static  __align(4) UINT8     MACTxBuf[TX_QUEUE_NUM][TX_BUF_SIZE];   /* MAC·¢ËÍ»º³åÇø£¬4×Ö½Ú¶ÔÆë */ 
+static  __attribute__((aligned(4))) UINT8     MACRxBuf[RX_QUEUE_NUM][RX_BUF_SIZE];  
+static  __attribute__((aligned(4))) UINT8     MACTxBuf[TX_QUEUE_NUM][TX_BUF_SIZE]; 
 
 
 UINT8   myCh579MAC[MACADDR_LEN] = {0x84,0xc2,0xe4,0x02,0x03,0x04};
 
-u8 phy_flag=0;
+UINT8 phy_flag=0;
 
 
 /*******************************************************************************
  * @fn          WritePHYReg
  *
- * @brief       Ð´PHY¼Ä´æÆ÷
+ * @brief       PHY
  *
  * input parameters
  *
- * @param       reg_add. ¼Ä´æÆ÷µØÖ·
- * @param       reg_val. ¼Ä´æÆ÷µÄÖµ
+ * @param       reg_add.
+ * @param       reg_val. 
  *
  * output parameters
  *
@@ -49,17 +49,17 @@ static void WritePHYRegX(UINT8 reg_add,UINT16 reg_val)
 /*******************************************************************************
  * @fn          ReadPHYReg
  *
- * @brief       ¶ÁPHY¼Ä´æÆ÷
+ * @brief       PHY
  *
  * input parameters
  *
- * @param       reg_add. ¼Ä´æÆ÷µØÖ·
+ * @param       reg_add.
  *
  * output parameters
  *
  * @param       None.
  *
- * @return      ¼Ä´æÆ÷¶ÁÈ¡µÄÖµ.
+ * @return      
  */
 static UINT16 ReadPHYRegX(UINT8 reg_add)
 {
@@ -73,8 +73,6 @@ static UINT16 ReadPHYRegX(UINT8 reg_add)
 	return read_reg_val;
 }
 
-
-//³õÊ¼»¯ÍøÂç²ÎÊý
 void ETHParaInitX(void)
 {
 	UINT8 i = 0;
@@ -94,15 +92,12 @@ void ETHParaInitX(void)
 		ETHTxMagPara.TxBufAddr[i] = (UINT32)(&MACTxBuf[i][0]);
 	}
 
-	//·¢ËÍ½ÓÊÕÊ¹ÄÜ¹Ø±Õ
 	ETHRxMagPara.RecvEn = 0;   
 	ETHTxMagPara.SendEn = 0;
 
-
-	//»ñÈ¡Î¨Ò»MACµØÖ·
 	GetMACAddress(myCh579MAC);
 //	myCh579MAC[5]=myCh579MAC[0]+myCh579MAC[1]+myCh579MAC[2]+myCh579MAC[3]+myCh579MAC[4]+myCh579MAC[5];
-//	myCh579MAC[0]=0x00; //È·±£MACµØÖ·µÚ1¸ö×Ö½ÚÎª0
+//	myCh579MAC[0]=0x00; 
 	
 
 	printf("ETHParaInitX mac: %x:%x:%x:%x:%x:%x\r\n",myCh579MAC[5], myCh579MAC[4],myCh579MAC[3],myCh579MAC[2],myCh579MAC[1],myCh579MAC[0]);
@@ -114,14 +109,14 @@ void ETHParaInitX(void)
 
 
 
-//ÍøÂç½Ó¿Ú³õÊ¼»¯
+//ï¿½ï¿½ï¿½ï¿½Ó¿Ú³ï¿½Ê¼ï¿½ï¿½
 void ETHInitX(void)
 {
 
 	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;
 	R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
-	R8_SLP_CLK_OFF1 &= ~RB_SLP_CLK_ETH;	      //¿ªÆôETH¿ØÖÆÆ÷Ê±ÖÓ
-	R8_SLP_POWER_CTRL &= ~RB_SLP_ETH_PWR_DN;  //¿ªÆôETH¿ØÖÆÆ÷µçÔ´ 
+	R8_SLP_CLK_OFF1 &= ~RB_SLP_CLK_ETH;	     
+	R8_SLP_POWER_CTRL &= ~RB_SLP_ETH_PWR_DN;
 	R8_SAFE_ACCESS_SIG = 0;	
 
 	R8_ETH_EIE = 0;
@@ -130,72 +125,50 @@ void ETHInitX(void)
 	              RB_ETH_EIE_LINKIE|
 	              RB_ETH_EIE_TXIE  |
 	              RB_ETH_EIE_TXERIE|
-	              RB_ETH_EIE_RXERIE;   //¿ªÆôËùÓÐÖÐ¶Ï
+	              RB_ETH_EIE_RXERIE;   
 	
 	
-	R8_ETH_EIE |= RB_ETH_EIE_R_EN50;     //¿ªÆô50Å·ÉÏÀ­
-
-	//Ð´1Çå0
-	R8_ETH_EIR = 0xff;               			//Çå³ýÖÐ¶Ï±êÖ¾
-	R8_ETH_ESTAT |= RB_ETH_ESTAT_INT | RB_ETH_ESTAT_BUFER;  //Çå³ý×´Ì¬
+	R8_ETH_EIE |= RB_ETH_EIE_R_EN50;    
 	
-	//ÊÕ·¢Ä£¿é¸´Î»
+	R8_ETH_EIR = 0xff;               			
+	R8_ETH_ESTAT |= RB_ETH_ESTAT_INT | RB_ETH_ESTAT_BUFER;  
+	
 	R8_ETH_ECON1 |= (RB_ETH_ECON1_TXRST|RB_ETH_ECON1_RXRST);   
 	R8_ETH_ECON1 &= ~(RB_ETH_ECON1_TXRST|RB_ETH_ECON1_RXRST);
 	
-	//½ÓÊÕÊ¹ÄÜÔÚlinkÖÐ¶ÏÀïÐ´
 
-	//¹ýÂËÄ£Ê½£¬½ÓÊÕ°üÀàÐÍ
-	R8_ETH_ERXFCON = 0;  //²»¹ýÂË ½ÓÊÕËùÓÐ°ü
+	R8_ETH_ERXFCON = 0; 
 	
-	//¹ýÂËÄ£Ê½£¬ÏÞÖÆ°üÀàÐÍ	
-	R8_ETH_MACON1 |= RB_ETH_MACON1_MARXEN;       //MAC½ÓÊÕÊ¹ÄÜ
+	R8_ETH_MACON1 |= RB_ETH_MACON1_MARXEN;       
 	R8_ETH_MACON2 &= ~RB_ETH_MACON2_PADCFG;
 
-	R8_ETH_MACON2 |= PADCFG_AUTO_3;               //ËùÓÐ¶Ì°ü×Ô¶¯Ìî³äµ½60
+	R8_ETH_MACON2 |= PADCFG_AUTO_3;             
 	
-	R8_ETH_MACON2 |= RB_ETH_MACON2_TXCRCEN;          //Ó²¼þÌî³äCRC
-	R8_ETH_MACON2 &= ~RB_ETH_MACON2_HFRMEN;          //²»½ÓÊÕ¾ÞÐÍÖ¡
+	R8_ETH_MACON2 |= RB_ETH_MACON2_TXCRCEN;          //RC
+	R8_ETH_MACON2 &= ~RB_ETH_MACON2_HFRMEN;        
 	
 
-	R8_ETH_MACON2 |= RB_ETH_MACON2_FULDPX;    //È«Ë«¹¤
-	R16_ETH_MAMXFL = MAC_MAX_LEN;            //MAC²ã×î´ó½ÓÊÕ°ü³¤¶È
+	R8_ETH_MACON2 |= RB_ETH_MACON2_FULDPX;   
+	R16_ETH_MAMXFL = MAC_MAX_LEN;            //MAC
 	
-	R8_ETH_MAADR1 = myCh579MAC[5];           //MAC¸³Öµ
+	R8_ETH_MAADR1 = myCh579MAC[5];           //MAC
 	R8_ETH_MAADR2 = myCh579MAC[4];
 	R8_ETH_MAADR3 = myCh579MAC[3];
 	R8_ETH_MAADR4 = myCh579MAC[2];
 	R8_ETH_MAADR5 = myCh579MAC[1];
 	R8_ETH_MAADR6 = myCh579MAC[0];
 	
-	//Ê¹ÄÜETHÒý½Å
 	R16_PIN_ANALOG_IE |= RB_PIN_ETH_IE;
 	
-	R16_ETH_ERXST = (UINT16)ETHRxMagPara.RxBufAddr[ETHRxMagPara.RecvIndex];     //µ±Ç°½ÓÊÕ»º´æ
+	R16_ETH_ERXST = (UINT16)ETHRxMagPara.RxBufAddr[ETHRxMagPara.RecvIndex];    
 
-	R8_ETH_ECON1 |= RB_ETH_ECON1_RXEN;                                      //½ÓÊÕÊ¹ÄÜ
+	R8_ETH_ECON1 |= RB_ETH_ECON1_RXEN;                                      
 
 	NVIC_EnableIRQ(ETH_IRQn); 
 
 	//printf("ETHInitX OK \r\n");
 }
 
-
-/*******************************************************************************
- * @fn          ETH_IRQ_ERR_Deal
- *
- * @brief       ÖÐ¶ÏÊÕ·¢´íÎó´¦Àí
- *
- * input parameters
- *
- * @param       err_sta. µ±Ç°´íÎó×´Ì¬
- *
- * output parameters
- *
- * @param       None.
- *
- * @return      None.
- */
 static void ETH_IRQ_ERR_Deal(UINT8 err_sta)
 {
 	if(err_sta&RB_ETH_ESTAT_BUFER)    printf("err:BUFER\r\n");
@@ -208,12 +181,9 @@ static void ETH_IRQ_ERR_Deal(UINT8 err_sta)
 
 
 
-/*************************************************************
-½«´ý·¢ËÍµÄÊý¾Ý·ÅÈëMAC·¢ËÍ¶ÓÁÐ
+/************************************************************
 
-send_len <= MAC_MAX_LEN(576 ×Ö½Ú)
-
-³É¹¦·µ»Ø 0£¬Ê§°Ü·µ»Ø ·Ç0Öµ
+send_len <= MAC_MAX_LEN(576 )
 
 *************************************************************/
 UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
@@ -232,12 +202,9 @@ UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
 	
 	if(ETHTxMagPara.TxQueueCnt>=TX_QUEUE_NUM)
 	{
-		//·¢ËÍ¶ÓÁÐÂú
 		return 0xfe;
 	}
 
-
-	//±ê¼Ç·¢ËÍ»º³åÇøÖÐÓÐÊý¾Ý¼°Êý¾Ý³¤¶È
 	ETHTxMagPara.TxBufStau[ETHTxMagPara.WriteIndex] = 1;
 	ETHTxMagPara.TxBufLen[ETHTxMagPara.WriteIndex] = len;
 	p_tx_buf = (UINT8 *)ETHTxMagPara.TxBufAddr[ETHTxMagPara.WriteIndex];
@@ -254,12 +221,12 @@ UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
 
 	                                            
 	ETHTxMagPara.TxQueueCnt++;
-	if(ETHTxMagPara.TxQueueCnt==1)   //Ö»ÓÐÒ»¸ö°üµÄÊ±ºò£¬Æô¶¯·¢ËÍ
+	if(ETHTxMagPara.TxQueueCnt==1)  
 	{
-		R16_ETH_ETXLN = ETHTxMagPara.TxBufLen[ETHTxMagPara.SendIndex];          //Ð´Èë³¤¶È
-		R16_ETH_ETXST = (UINT16)ETHTxMagPara.TxBufAddr[ETHTxMagPara.SendIndex]; //Ð´ÈëµØÖ·         
-		ETHTxMagPara.TxBufStau[ETHTxMagPara.SendIndex] = 0;                     //¿ÕÏÐ
-		R8_ETH_ECON1 |= RB_ETH_ECON1_TXRTS;                                     //¿ªÊ¼·¢ËÍ
+		R16_ETH_ETXLN = ETHTxMagPara.TxBufLen[ETHTxMagPara.SendIndex];          
+		R16_ETH_ETXST = (UINT16)ETHTxMagPara.TxBufAddr[ETHTxMagPara.SendIndex];       
+		ETHTxMagPara.TxBufStau[ETHTxMagPara.SendIndex] = 0;                     
+		R8_ETH_ECON1 |= RB_ETH_ECON1_TXRTS;                                   
 		ETHTxMagPara.SendIndex++;
 		if(ETHTxMagPara.SendIndex>=TX_QUEUE_NUM) ETHTxMagPara.SendIndex = 0;
 		ETHTxMagPara.TxQueueCnt--;
@@ -268,23 +235,6 @@ UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
 	return 0;
 }
 
-
-/***************************************************************
-½ÓÊÕÒÔÌ«ÍøMAC²ãÊý¾Ý
-
-pRecvBuf: ±£´æ½ÓÊÕÊý¾ÝµÄ»º³åÇø
-
-pRecvBuf >= MAC»º³åÇø  MAC_MAX_LEN(576 ×Ö½Ú)
-
-RecvBufSize: ½ÓÊÕ»º³åÇø´óÐ¡
-
-·µ»ØÊý¾Ý°üµÄ³¤¶È
-
-1´Îµ÷ÓÃÖ»¶ÁÈ¡MAC½ÓÊÕ»º³åÇø¶ÓÁÐÀïÃæµÄÒ»¸ö½ÓÊÕ»º³åÇøÊý¾Ý
-
-//pRecvBuf  --> MAX512
-
-****************************************************************/
 UINT16 ETHRecX(UINT8     *pRecvBuf, UINT16 RecvBufSize)
 {
 	UINT16  recv_len = 0;
@@ -294,7 +244,7 @@ UINT16 ETHRecX(UINT8     *pRecvBuf, UINT16 RecvBufSize)
 	
 	if(!ETHRxMagPara.RemainCout) 
 	{
-		//ETHRxMagPara.RemainCout == 0 Ã»ÓÐÊý¾Ý¿É½ÓÊÕ
+		//ETHRxMagPara.RemainCout == 0 
 		return 0;  
 	}
 	
@@ -315,18 +265,13 @@ UINT16 ETHRecX(UINT8     *pRecvBuf, UINT16 RecvBufSize)
 	
 }
 
-
-/*
- »ñÈ¡MAC²ã½ÓÊÕµ½µÄÊý¾ÝµÄ³¤¶È
-
-*/
 UINT16 GetRecvMacDataLen(void)
 {
 	UINT16  recv_len = 0;
 
 	if(!ETHRxMagPara.RemainCout) 
 	{
-		//ETHRxMagPara.RemainCout == 0 Ã»ÓÐÊý¾Ý¿É½ÓÊÕ
+		//ETHRxMagPara.RemainCout == 0
 		return 0;  
 	}
 
@@ -349,40 +294,30 @@ void ETH_IRQHandler(void)
 	
 	if(eth_irq_flag&RB_ETH_EIR_RXIF)                                           
 	{	
-		//½ÓÊÕÍê³ÉÖÐ¶Ï	
-
-		//Ó²¼þ×Ô¶¯¸²¸Ç
 		rec_len = R16_ETH_ERXLN;
 		if(ETHRxMagPara.RemainCout<(RX_QUEUE_NUM-1))  
 		{
-			 //ÓÐ¶ÓÁÐ¿ÕÏÐ£¬±£Áô×îºóÒ»¸öËæ±ã¸²¸Ç£¬Ò²Ê¹ÓÃÕâ¸ö¶ÓÁÐÀïµÄÊý¾Ý
 			ETHRxMagPara.RxBufStau[ETHRxMagPara.RecvIndex] = 1;
 			ETHRxMagPara.RxBufLen[ETHRxMagPara.RecvIndex] = rec_len;
 			ETHRxMagPara.RemainCout++;
 			ETHRxMagPara.RecvIndex++;
 			if(ETHRxMagPara.RecvIndex>=RX_QUEUE_NUM) ETHRxMagPara.RecvIndex = 0;
-			R16_ETH_ERXST = (UINT16)ETHRxMagPara.RxBufAddr[ETHRxMagPara.RecvIndex]; //¸üÐÂÏÂÒ»¸ö½ÓÊÕµØÖ·
+			R16_ETH_ERXST = (UINT16)ETHRxMagPara.RxBufAddr[ETHRxMagPara.RecvIndex]; 
 		}
 		else                                                                        
 		{
-			//¸²¸Ç×îÐÂµÄ°ü
-			/************************************************************************
-				ËùÓÐ¶ÓÁÐ¶¼ÓÐÊý¾ÝÊ±£¬×îºóÒ»¸ö¶ÓÁÐÊÇ²»ÓÃµÄ£¬Ö±µ½Ò»¸öÐÂµÄ¿ÕÏÐ¶ÓÁÐ²úÉúºó£¬
-				²¢½ÓÊÕÒ»¸öÐÂµÄÊý¾Ý°ü²Å»á¶ÁÈ¡Õâ¸öÊý¾Ý¡£
-			*************************************************************************/
 			ETHRxMagPara.RxBufStau[ETHRxMagPara.RecvIndex] = 1;
 			ETHRxMagPara.RxBufLen[ETHRxMagPara.RecvIndex] = rec_len;
-	
 		}
 
 		//printf("recv finish:%d\r\n", rec_len);
 		//lwip_pkt_handle();
-		R8_ETH_EIR = RB_ETH_EIR_RXIF; //Çå³ý½ÓÊÕÍê³ÉÖÐ¶Ï±êÖ¾
+		R8_ETH_EIR = RB_ETH_EIR_RXIF; 
 	}	
 	if(eth_irq_flag&RB_ETH_EIR_LINKIF)                                         
 	{
-		 //Link ±ä»¯ÖÐ¶Ï
-		phy_reg = ReadPHYRegX(PHY_BMSR);                                         //¶ÁÈ¡PHY×´Ì¬¼Ä´æÆ÷
+		 //Link
+		phy_reg = ReadPHYRegX(PHY_BMSR);          
 		if(phy_reg&0x04) 
 		{
 			//printf("link connect ok....\r\n");
@@ -400,30 +335,27 @@ void ETH_IRQHandler(void)
 	if(eth_irq_flag&RB_ETH_EIR_TXIF)                                           
 	{
 		//printf("send finish interrupt\r\n");
-		 //·¢ËÍÍê³ÉÖÐ¶Ï
-		if(ETHTxMagPara.TxQueueCnt)   //¶ÓÁÐÀï»¹ÓÐÊý¾Ý°üÃ»ÓÐ·¢ËÍ
+		if(ETHTxMagPara.TxQueueCnt)  
 		{
 			R16_ETH_ETXLN = ETHTxMagPara.TxBufLen[ETHTxMagPara.SendIndex];
 			R16_ETH_ETXST = ETHTxMagPara.TxBufAddr[ETHTxMagPara.SendIndex];
-			ETHTxMagPara.TxBufStau[ETHTxMagPara.SendIndex] = 0;  //¿ÕÏÐ
+			ETHTxMagPara.TxBufStau[ETHTxMagPara.SendIndex] = 0;  
 			
-			R8_ETH_ECON1 |= RB_ETH_ECON1_TXRTS;        //¿ªÊ¼·¢ËÍ
+			R8_ETH_ECON1 |= RB_ETH_ECON1_TXRTS;       
 			ETHTxMagPara.SendIndex++;
 			if(ETHTxMagPara.SendIndex>=TX_QUEUE_NUM) ETHTxMagPara.SendIndex = 0;
 			ETHTxMagPara.TxQueueCnt--;
-		}                                                  //·¢ËÍ´¦Àí
+		}                                                  
 		R8_ETH_EIR = RB_ETH_EIR_TXIF;
 	}
 
 	
-	if(eth_irq_flag&(RB_ETH_EIR_TXERIF|RB_ETH_EIR_RXERIF))   //ÊÕ·¢³ö´íÖÐ¶Ï
+	if(eth_irq_flag&(RB_ETH_EIR_TXERIF|RB_ETH_EIR_RXERIF)) 
 	{
 		eth_irq_status = R8_ETH_ESTAT;
-		ETH_IRQ_ERR_Deal(eth_irq_status);  //³ö´í´¦Àí
-		//Çå³ý´íÎóÖÐ¶Ï±êÖ¾
+		ETH_IRQ_ERR_Deal(eth_irq_status);  
 		R8_ETH_EIR = (RB_ETH_EIR_TXERIF|RB_ETH_EIR_RXERIF);
 
-		//·¢ËÍ½ÓÊÕ³ö´íºó£¬ÖØÆôCH579 
 		NVIC_SystemReset();
 	}
 	
@@ -436,17 +368,11 @@ void phy_change(UINT8 flag)
 	else if(flag%2)
    	R32_ETH_MIWR=0x0000011e; 	
 }
-/*
- »ñÈ¡ÎïÀí²ãÁ´Â·×´Ì¬
 
-	1--¡·Á´Â·Á¬½Ó
-	0--¡·Á´Â·¶Ï¿ª
-
-*/
 UINT8 GetPhyLinkState(void)
 {
 	UINT16  phy_reg = 0;
-	phy_reg = ReadPHYRegX(PHY_BMSR);                                         //¶ÁÈ¡PHY×´Ì¬¼Ä´æÆ÷
+	phy_reg = ReadPHYRegX(PHY_BMSR);                                     
 	if(phy_reg&0x04) 
 	{
 //		printf("link connect ok....\r\n");
