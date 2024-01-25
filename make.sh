@@ -72,6 +72,11 @@ file="$TOOLCHAIN_GCC StdPeriphDriver/CH57x_flash.c $INLCUDES -o build/CH57x_flas
 echo $file
 $file
 
+filename=CH57x_timer0
+file="$TOOLCHAIN_GCC StdPeriphDriver/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
 file="$TOOLCHAIN_GCC stdlib_impl.c $INLCUDES -o build/stdlib_impl.o $GCC_FLAGS"
 echo $file
 $file
