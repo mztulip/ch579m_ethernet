@@ -1,7 +1,7 @@
 #/bin/bash
 set -e
 
-if [ $1 = "--ram" ]; then
+if [[ $1 = "--ram" ]]; then
     LINKER_SCRIPT="ch579_ram.lds"
     
 else
@@ -78,10 +78,6 @@ echo $file
 $file
 
 file="$TOOLCHAIN_GCC stdlib_impl.c $INLCUDES -o build/stdlib_impl.o $GCC_FLAGS"
-echo $file
-$file
-
-file="$TOOLCHAIN_GCC Net/src/parameter_setting.c $INLCUDES -o build/parameter_setting.o $GCC_FLAGS"
 echo $file
 $file
 
@@ -199,6 +195,11 @@ $file
 
 filename=err
 file="$TOOLCHAIN_GCC lwip-2.1.2/src/api/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+echo $file
+$file
+
+filename=timer0
+file="$TOOLCHAIN_GCC Net/src/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
 echo $file
 $file
 
