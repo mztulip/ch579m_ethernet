@@ -40,10 +40,10 @@ void InitTimer0(void)
 
 void  SetDefaultEthUartCfg(void)
 {
-	MY_ETH_IP = LED_CARD_DEFAULT_IP;		
-	MY_ETH_GW  = LED_CARD_DEFAULT_GW;		
-	MY_ETH_MASK = LED_CARD_DEFAULT_MASK;			
-	MY_ETH_PORT = LED_CARD_DEFAULT_PORT;  			
+	MY_ETH_IP = DEFAULT_IP;		
+	MY_ETH_GW  = DEFAULT_GW;		
+	MY_ETH_MASK = DEFAULT_MASK;			
+	MY_ETH_PORT = DEFAULT_PORT;  			
 }
 
 void  InitAppCommon(void)
