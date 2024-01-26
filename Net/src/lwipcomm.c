@@ -46,7 +46,7 @@ UINT8  lwip_comm_init(void)
 	IP4_ADDR_X(&ipaddr, MY_ETH_IP);  
 	IP4_ADDR_X(&netmask, MY_ETH_MASK);  
 	IP4_ADDR_X(&gw, MY_ETH_GW); 
-	printf("IP:%ld.%ld.%ld.%ld\n\n",  \
+	printf("\n\rIP:%ld.%ld.%ld.%ld\n\r",  \
         ((MY_ETH_IP)&0x000000ff),       \
         (((MY_ETH_IP)&0x0000ff00)>>8),  \
         (((MY_ETH_IP)&0x00ff0000)>>16), \
