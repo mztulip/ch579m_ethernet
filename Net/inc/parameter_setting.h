@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "mybufque.h"
 
 typedef struct  _eth_uart_cfg
 {
@@ -23,22 +22,14 @@ extern  eth_uart_cfg_t   gEthUartCfgInfo;
 extern UINT8  g_eth_phy_link_state;
 
 
-#define  MY_ETH_IP  			gEthUartCfgInfo.eth_ip
-#define  MY_ETH_GW  			gEthUartCfgInfo.eth_gw
-#define  MY_ETH_MASK  			gEthUartCfgInfo.eth_mask
-#define  MY_ETH_PORT  			gEthUartCfgInfo.eth_port
 
-#define   	PROT_DATA_FROM_TCP			1
-#define   	PROT_DATA_FROM_UDP			2
-#define   	PROT_DATA_FROM_MAC			3
-#define   	PROT_DATA_FROM_UDP3W	  4   //udp 30000 
-#define   	PROT_DATA_FROM_TCP3W		5   //tcp 30000 
-
-
+// #define   	PROT_DATA_FROM_TCP			1
+// #define   	PROT_DATA_FROM_UDP			2
+// #define   	PROT_DATA_FROM_MAC			3
+// #define   	PROT_DATA_FROM_UDP3W	  4   //udp 30000 
+// #define   	PROT_DATA_FROM_TCP3W		5   //tcp 30000 
 
 extern  UINT8  g_cur_eth_comm_chan;   
-
-
 
 #define  SET_NET_LED_ON()		 GPIOB_ResetBits(GPIO_Pin_4)
 #define  SET_NET_LEDX_ON()		 GPIOB_ResetBits(GPIO_Pin_7)
@@ -48,24 +39,15 @@ extern  UINT8  g_cur_eth_comm_chan;
 #define  SET_NET_LEDX_OFF()		 GPIOB_SetBits(GPIO_Pin_7)
 
 #define  SET_NET_LEDX_FLASH()	 GPIOB_InverseBits(GPIO_Pin_7)
-
-
-#define  	DEFAULT_PORT 			8800
-#define  	DEFAULT_IP       		0xC0A802EB   //192.168.2.235    
-#define  	DEFAULT_GW       		0xC0A80201    //192.168.2.1      
-#define  	DEFAULT_DNS       		0xC0A80101      
-#define  	DEFAULT_MASK       	0xFFFFFF00     //FFFFFF00  
+	
 								
 #define  	GET_SYS_TICK()			gSysTicket
 
 extern 	 UINT8  			gMyPeerMac[];
 extern   UINT32   			gSysTicket ;
 
-
 void  InitTimer0(void);
 void  InitAppCommon(void);
 void  NETLed_Init(void);
-void DebugInit(void);
-void  SetDefaultEthUartCfg(void);
 
 #endif 

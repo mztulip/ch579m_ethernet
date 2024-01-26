@@ -81,14 +81,6 @@ file="$TOOLCHAIN_GCC stdlib_impl.c $INLCUDES -o build/stdlib_impl.o $GCC_FLAGS"
 echo $file
 $file
 
-file="$TOOLCHAIN_GCC Net/src/mybufque.c $INLCUDES -o build/mybufque.o $GCC_FLAGS"
-echo $file
-$file
-
-file="$TOOLCHAIN_GCC Net/src/mytcpserver.c $INLCUDES -o build/mytcpserver.o $GCC_FLAGS"
-echo $file
-$file
-
 file="$TOOLCHAIN_GCC Net/src/parameter_setting.c $INLCUDES -o build/parameter_setting.o $GCC_FLAGS"
 echo $file
 $file

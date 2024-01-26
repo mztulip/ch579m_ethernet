@@ -1,23 +1,12 @@
 #include "parameter_setting.h"
-//https://gitee.com/maji19971221/lwip-routine
 
-UINT8 gMyPeerMac[6];
+
 UINT32  gSysTicket = 0;
-__attribute__((aligned (4))) eth_uart_cfg_t  gEthUartCfgInfo;
+// __attribute__((aligned (4))) eth_uart_cfg_t  gEthUartCfgInfo;
 
 
 extern UINT32  g_lwip_localtime;
-
 static  UINT32  TimingDelay = 0;
-
-void DebugInit(void)		
-{
-    GPIOA_SetBits(GPIO_Pin_9);
-    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);
-    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA);
-    UART1_DefInit();
-}
-
 
 void NETLed_Init(void)
 {
@@ -38,18 +27,11 @@ void InitTimer0(void)
   NVIC_EnableIRQ(TMR0_IRQn);
 }
 
-void  SetDefaultEthUartCfg(void)
-{
-	MY_ETH_IP = DEFAULT_IP;		
-	MY_ETH_GW  = DEFAULT_GW;		
-	MY_ETH_MASK = DEFAULT_MASK;			
-	MY_ETH_PORT = DEFAULT_PORT;  			
-}
-
 void  InitAppCommon(void)
-{	
+{	 	
 	g_eth_phy_link_state = 0; 
-	init_my_buf_que(&g_eth_buf_que); 
+	NETLed_Init();
+	lwip_comm_init(); 
 }
 
 void TMR0_IRQHandler( void )        // TMR0

@@ -1,4 +1,5 @@
-//https://gitee.com/maji19971221/lwip-routine
+//Based on https://gitee.com/maji19971221/lwip-routine
+// Modified by mztulip
 #include "netif/etharp.h"
 #include "lwip/dhcp.h"
 #include "lwip/mem.h"
@@ -26,11 +27,12 @@
 
 struct netif lwip_netif;
 
-
+UINT8 g_eth_phy_link_state = 0;
 static UINT8 phyflag = 0;
 ip4_addr_t ipaddr;  			
 ip4_addr_t netmask; 			
-ip4_addr_t gw;      			 
+ip4_addr_t gw;
+
 static void  IP4_ADDR_X(struct ip4_addr *ipaddr,u32_t ipaddrx)
 {
 	ipaddr->addr = htonl(ipaddrx);
@@ -42,10 +44,11 @@ UINT8  lwip_comm_init(void)
 	struct netif *Netif_Init_Flag;	
 
 	lwip_init();
+   
+	IP4_ADDR_X(&ipaddr, 0xC0A802EB);  //192.168.2.235 
+	IP4_ADDR_X(&netmask, 0xFFFFFF00);  
+	IP4_ADDR_X(&gw, 0xC0A80201); //192.168.2.1
 
-	IP4_ADDR_X(&ipaddr, MY_ETH_IP);  
-	IP4_ADDR_X(&netmask, MY_ETH_MASK);  
-	IP4_ADDR_X(&gw, MY_ETH_GW); 
 	printf("\n\rIP:%ld.%ld.%ld.%ld\n\r",  \
         ((ipaddr.addr)&0x000000ff),       \
         (((ipaddr.addr)&0x0000ff00)>>8),  \
@@ -60,12 +63,13 @@ UINT8  lwip_comm_init(void)
 	}
 	else
 	{
-		printf("\n\rnetif_add success");
+		
 		netif_set_default(&lwip_netif); 
 		netif_set_up(&lwip_netif);
 		netif_set_link_up(&lwip_netif); 
 	}
 
+	printf("\n\rlwip initialised sucessfully.");
 	return 0;
 	
 }
