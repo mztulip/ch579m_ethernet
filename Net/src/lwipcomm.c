@@ -38,11 +38,20 @@ static void  IP4_ADDR_X(struct ip4_addr *ipaddr,u32_t ipaddrx)
 	ipaddr->addr = htonl(ipaddrx);
 }
 
+void NETLed_Init(void)
+{
+	GPIOB_ModeCfg(GPIO_Pin_4, GPIO_ModeOut_PP_20mA);
+	GPIOB_ModeCfg(GPIO_Pin_7, GPIO_ModeOut_PP_20mA);
+
+	SET_NET_LED_OFF();
+	SET_NET_LEDX_OFF();
+}
+
 UINT8  lwip_comm_init(void)
 {
-
 	struct netif *Netif_Init_Flag;	
 
+	NETLed_Init();
 	lwip_init();
    
 	IP4_ADDR_X(&ipaddr, 0xC0A802EB);  //192.168.2.235 

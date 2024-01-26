@@ -59,11 +59,9 @@
 #include "lwip/snmp.h"
 
 /* Define those to better describe your network interface. */
-#define IFNAME0 's'
+#define IFNAME0 'e'
 #define IFNAME1 't'
 
-
-//u8_t   gMacFrameBuf[MAX_FRAMELEN] ={0};
 /**
  * Helper struct to hold private data used to operate your ethernet interface.
  * Keeping the ethernet address of the MAC in this struct is not necessary
@@ -133,11 +131,9 @@ static void  low_level_init(struct netif *netif)
 
 static err_t low_level_output(struct netif *netif, struct pbuf *p)
 {
-  //struct ethernetif *ethernetif = netif->state;
   struct   pbuf *q;
   uint8_t  snd_status = 0;
  
-  
   for(q = p; q != NULL; q = q->next) 
   {
     /* Send the data from the pbuf to the interface, one pbuf at a
@@ -149,14 +145,12 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
   }
 
   return  (err_t)snd_status;
-  
 }
 
 
 
 err_t  MyMacSendData(UINT8*dataBuf,     UINT16 dataSize)
 {
-
 	u16_t framelen = 0;
 	u8_t  snd_status = 0;
 

@@ -24,7 +24,8 @@ int main()
     InitTimer0();
     uart_init();
     printf("Hello\n");
-    InitAppCommon();
+    lwip_comm_init(); 
+}
 
     while(1)
     {
