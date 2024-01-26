@@ -53,7 +53,7 @@ static void  IP4_ADDR_X(struct ip4_addr *ipaddr,u32_t ipaddrx)
 	ipaddr->addr = htonl(ipaddrx);
 }
 
-void NETLed_Init(void)
+void eth_status_led_init(void)
 {
 	GPIOB_ModeCfg(GPIO_Pin_4, GPIO_ModeOut_PP_20mA);
 	GPIOB_ModeCfg(GPIO_Pin_7, GPIO_ModeOut_PP_20mA);
@@ -71,7 +71,7 @@ uint8_t lwip_comm_init(void)
 {
 	struct netif *Netif_Init_Flag;	
 
-	NETLed_Init();
+	eth_status_led_init();
 	lwip_init();
 
 	IP4_ADDR(&ipaddr,  192, 168,   2, 235);

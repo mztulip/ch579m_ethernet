@@ -29,5 +29,5 @@ void TMR0_IRQHandler( void )        // TMR0
 //Should return time in miliseconds
 u32_t sys_now()
 {
-  	return time_10ms/10;
+  	return time_10ms*10;
 }
