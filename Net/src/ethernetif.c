@@ -54,7 +54,7 @@
 #include "lwip/netif.h"
 
 #include "eth_mac.h"
-
+#include "lwipcomm.h"
 #include "ethernetif.h"
 #include "lwip/snmp.h"
 
@@ -146,34 +146,6 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 
   return  (err_t)snd_status;
 }
-
-
-
-err_t  MyMacSendData(UINT8*dataBuf,     UINT16 dataSize)
-{
-	u16_t framelen = 0;
-	u8_t  snd_status = 0;
-
-	//memcpy(gMacFrameBuf, dataBuf,  dataSize);
-
-	memcpy(&dataBuf[1], gMyPeerMac,6);  	
-	memcpy(&dataBuf[7],lwip_netif.hwaddr,6);  		
-
-	 dataBuf[13]  = 0xaa;
-	 dataBuf[14]  = 0xaa;
-
-	 dataBuf[15] = ((dataSize-16)>>8)&0xff; 
-	 dataBuf[16] =  (dataSize-16)&0xff;  
-
-	 framelen = dataSize; 
-
-	 snd_status = ETHSendX((UINT8*)&dataBuf[1], framelen);
-	
-
-	return (err_t)snd_status;;
-	
-} 
-
 
 /**
  * Should allocate a pbuf and transfer the bytes of the incoming

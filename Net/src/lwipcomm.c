@@ -62,7 +62,7 @@ void NETLed_Init(void)
 	eth_green_led_off();
 }
 
-UINT8  lwip_comm_init(void)
+uint8_t lwip_comm_init(void)
 {
 	struct netif *Netif_Init_Flag;	
 
