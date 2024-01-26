@@ -37,7 +37,7 @@ int main()
     SetSysClock(CLK_SOURCE_HSE_32MHz); 
     InitTimer0();
     DebugInit();
-    printf("Test\n");
+    printf("Hello\n");
     SetDefaultEthUartCfg();
     InitAppCommon();
 
