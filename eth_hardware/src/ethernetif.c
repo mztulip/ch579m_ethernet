@@ -94,29 +94,18 @@ static void  low_level_init(struct netif *netif)
 
 
   /* maximum transfer unit */
-
-  /*
-    ��̫�����ݰ�=Ŀ�ĵ�ַ��6�ֽڣ�+Դ��ַ��6�ֽڣ�+���ͣ�2�ֽڣ�+��������ݣ�n�ֽڣ�+CRCУ���루4�ֽڣ���18+n��1518������n��1500��
-
-	��̫�����ݰ� = ��������ݳ���+18
-
-	mtu: ��������ݳ���
-
-  */
   netif->mtu = MAX_FRAMELEN;
 
-
-  //��ʼ����̫���ӿ�
   ETHParaInitX();
   ETHInitX();
 
     /* set MAC hardware address */
-  netif->hwaddr[0] = myCh579MAC[0];
-  netif->hwaddr[1] = myCh579MAC[1];
-  netif->hwaddr[2] = myCh579MAC[2];
-  netif->hwaddr[3] = myCh579MAC[3];
-  netif->hwaddr[4] = myCh579MAC[4];
-  netif->hwaddr[5] = myCh579MAC[5];
+  netif->hwaddr[0] = myCh579MAC[5];
+  netif->hwaddr[1] = myCh579MAC[4];
+  netif->hwaddr[2] = myCh579MAC[3];
+  netif->hwaddr[3] = myCh579MAC[2];
+  netif->hwaddr[4] = myCh579MAC[1];
+  netif->hwaddr[5] = myCh579MAC[0];
   
   /* device capabilities */
   /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
@@ -154,11 +143,9 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
     /* Send the data from the pbuf to the interface, one pbuf at a
        time. The size of the data in each pbuf is kept in the ->len
        variable. */
-    //send data from(q->payload, q->len);
 
 		//printf("low q->len:%d\r\n", q->len);
-		//ShowDataHex((UINT8*)q->payload, q->len);
-		snd_status = ETHSendX(q->payload, q->len); //����һ��MAC֡����
+		snd_status = ETHSendX(q->payload, q->len);
   }
 
   return  (err_t)snd_status;
@@ -217,7 +204,7 @@ static struct pbuf *low_level_input(struct netif *netif)
      variable. */
   len = GetRecvMacDataLen();
 
-  //printf("low len :%d\r\n", len);
+  // printf("low len :%d\r\n", len);
 	if(len > 0)
 	{
 		if(led_count%2 == 0)
@@ -236,12 +223,10 @@ static struct pbuf *low_level_input(struct netif *netif)
 	}
   if(len == 0)
   {
-  	 	//û�����ݽ���
-
 	 	return NULL;
   }
 
-
+  // printf("\nlen: %d:", len);
   /* We allocate a pbuf chain of pbufs from the pool. */
   p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
 
@@ -285,7 +270,6 @@ static struct pbuf *low_level_input(struct netif *netif)
  */
 void ethernetif_input(struct netif *netif)
 {
-
 	err_t err;
     struct pbuf *p;
   
@@ -293,6 +277,7 @@ void ethernetif_input(struct netif *netif)
 
 	
     if(p==NULL) return ;
+
     err=netif->input(p, netif);
     if (err!=ERR_OK)
     {
@@ -300,50 +285,6 @@ void ethernetif_input(struct netif *netif)
         pbuf_free(p);
         p=NULL;
     }
-
-
-
-
-#if  0
-  struct ethernetif *ethernetif;
-  struct eth_hdr *ethhdr;
-  struct pbuf *p;
-
-  ethernetif = netif->state;
-
-  /* move received packet into a new pbuf */
-  p = low_level_input(netif);
-  /* no packet could be read, silently ignore this */
-  if (p == NULL) return;
-  /* points to packet payload, which starts with an Ethernet header */
-  ethhdr = p->payload;
-
-  switch (htons(ethhdr->type)) 
-  {
-	  /* IP or ARP packet? */
-	  case ETHTYPE_IP:
-	  case ETHTYPE_ARP:
-#if PPPOE_SUPPORT
-	  /* PPPoE packet? */
-	  case ETHTYPE_PPPOEDISC:
-	  case ETHTYPE_PPPOE:
-#endif /* PPPOE_SUPPORT */
-	    /* full packet send to tcpip_thread to process */
-	    if (netif->input(p, netif)!=ERR_OK)
-	     { LWIP_DEBUGF(NETIF_DEBUG, ("ethernetif_input: IP input error\n"));
-	       pbuf_free(p);
-	       p = NULL;
-	     }
-	    break;
-
-	  default:
-	    pbuf_free(p);
-	    p = NULL;
-	    break;
-  	}
-
-  #endif 
-
 }
 
 /**
