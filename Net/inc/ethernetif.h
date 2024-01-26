@@ -10,15 +10,10 @@
 #include "netif/etharp.h"
 #include "lwip/netif.h"
 
-#include "parameter_setting.h"
 extern   struct netif  lwip_netif;
 
 void  ethernetif_input(struct netif *netif);
 err_t ethernetif_init(struct netif *netif);
-
-UINT8    lwip_comm_init(void);
-void  lwip_pkt_handle(void);
-void  lwip_periodic_handle(void);
 
 #endif 
 

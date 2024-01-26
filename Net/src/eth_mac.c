@@ -1,9 +1,7 @@
 #include "eth_mac.h"
 
-#include "parameter_setting.h"
 static  RXBUFST   ETHRxMagPara;   
 static  TXBUFST   ETHTxMagPara; 
-
 
 static  __attribute__((aligned(4))) UINT8     MACRxBuf[RX_QUEUE_NUM][RX_BUF_SIZE];  
 static  __attribute__((aligned(4))) UINT8     MACTxBuf[TX_QUEUE_NUM][TX_BUF_SIZE]; 
