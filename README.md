@@ -1,6 +1,6 @@
 # ch579m_udp_led
 
-Project presents UDP server to control led state.
+Project presents UDP server with possibility to control led state.
 
 Compile:
 ```
