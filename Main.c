@@ -16,6 +16,21 @@ void uart_init(void)
     UART1_DefInit();
 }
 
+void led_init(void)
+{
+    GPIOB_ModeCfg( GPIO_Pin_0, GPIO_ModeOut_PP_20mA );
+}
+
+void led_on(void)
+{
+    GPIOB_SetBits( GPIO_Pin_0 ); 
+}
+
+void led_off(void)
+{
+    GPIOB_ResetBits( GPIO_Pin_0 );
+}
+
 static void udp_received(void *arg, struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port)
 {
     LWIP_UNUSED_ARG(arg);
@@ -28,10 +43,12 @@ static void udp_received(void *arg, struct udp_pcb *pcb, struct pbuf *p, const i
         char c = data[0];
         if(c == '1')
         {
+            led_on();
             printf("\n\rLed enabled.");
         }
         else if(c == '0')
         {
+            led_off();
             printf("\n\rLed disabled.");
         }
         else
@@ -55,6 +72,7 @@ int main()
     DelayMs(3); 
     SetSysClock(CLK_SOURCE_HSE_32MHz); 
 
+    led_init();
     InitTimer0();
     uart_init();
     printf("\n\rUDP server example with led control.\n");
