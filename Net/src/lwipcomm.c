@@ -5,24 +5,19 @@
 #include "lwip/mem.h"
 #include "lwip/memp.h"
 #include "lwip/init.h"
-
-//#include "lwip/tcp_impl.h"
 #include "lwip/ip4_frag.h"
 #include "lwip/tcpip.h" 
-//#include "lwip/timers.h"
 #include "lwip/timeouts.h"
 #include "lwip/netif.h"
 #include "lwip/init.h"
 #include "lwip/def.h"
 #include "lwip/stats.h"
 #include "ethernetif.h" 
+#include "lwipcomm.h"
 
 #include <stdio.h>
 #include "parameter_setting.h"
-
 #include "eth_mac.h"
-
-
 #include "ip4_addr.h"
 
 struct netif lwip_netif;
@@ -32,6 +27,26 @@ static UINT8 phyflag = 0;
 ip4_addr_t ipaddr;  			
 ip4_addr_t netmask; 			
 ip4_addr_t gw;
+
+void eth_green_led_on(void)
+{
+	GPIOB_ResetBits(GPIO_Pin_4);
+}
+
+void eth_green_led_off(void)
+{
+	GPIOB_SetBits(GPIO_Pin_4);
+}
+
+void eth_amber_led_on(void)
+{
+	GPIOB_SetBits(GPIO_Pin_7);
+}
+
+void eth_amber_led_off(void)
+{
+	GPIOB_SetBits(GPIO_Pin_4);
+}
 
 static void  IP4_ADDR_X(struct ip4_addr *ipaddr,u32_t ipaddrx)
 {
@@ -43,8 +58,8 @@ void NETLed_Init(void)
 	GPIOB_ModeCfg(GPIO_Pin_4, GPIO_ModeOut_PP_20mA);
 	GPIOB_ModeCfg(GPIO_Pin_7, GPIO_ModeOut_PP_20mA);
 
-	SET_NET_LED_OFF();
-	SET_NET_LEDX_OFF();
+	eth_green_led_off();
+	eth_green_led_off();
 }
 
 UINT8  lwip_comm_init(void)
@@ -128,12 +143,12 @@ void lwip_periodic_handle(void)
 	{
 		if(phy_link_state)
 		{
-			SET_NET_LED_ON();
+			eth_green_led_on();
 			
 		}
 		else
 		{
-			SET_NET_LED_OFF();
+			eth_green_led_off();
 		}
 	}
 

@@ -8,14 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define  SET_NET_LED_ON()		 GPIOB_ResetBits(GPIO_Pin_4)
-#define  SET_NET_LEDX_ON()		 GPIOB_ResetBits(GPIO_Pin_7)
 
-
-#define  SET_NET_LED_OFF()		 GPIOB_SetBits(GPIO_Pin_4)
-#define  SET_NET_LEDX_OFF()		 GPIOB_SetBits(GPIO_Pin_7)
-
-#define  SET_NET_LEDX_FLASH()	 GPIOB_InverseBits(GPIO_Pin_7)
 	
 								
 #define  	GET_SYS_TICK()			gSysTicket

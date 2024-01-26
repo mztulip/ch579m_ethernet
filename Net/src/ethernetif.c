@@ -201,11 +201,11 @@ static struct pbuf *low_level_input(struct netif *netif)
 	{
 		if(led_count%2 == 0)
 		{
-			SET_NET_LEDX_ON();
+			eth_amber_led_on();
 		}
 		else
 		{
-			SET_NET_LEDX_OFF();
+			eth_amber_led_off();
 		}
 		led_count++;
 		if(led_count == 10)

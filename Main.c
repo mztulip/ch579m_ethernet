@@ -25,7 +25,6 @@ int main()
     uart_init();
     printf("Hello\n");
     lwip_comm_init(); 
-}
 
     while(1)
     {
