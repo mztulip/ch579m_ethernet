@@ -27,7 +27,7 @@ _write (int   file,
 void *
 _sbrk (int nbytes)
 {
-  static uint8_t heap[512];
+  static uint8_t heap[2048];
   static uint16_t last = 0;
   if(last+nbytes < 512)
   {
