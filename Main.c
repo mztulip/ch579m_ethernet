@@ -24,12 +24,13 @@ static void udp_received(void *arg, struct udp_pcb *pcb, struct pbuf *p, const i
     printf("\n\rgot udp");
     if (p->len == 1)
     {
-        char c = *(char*)p->payload[0];
-        if(c == "0")
+        uint8_t *data = (uint8_t*)p->payload;
+        char c = data[0];
+        if(c == '1')
         {
             printf("\n\rLed enabled.");
         }
-        else if(c == "1")
+        else if(c == '0')
         {
             printf("\n\rLed disabled.");
         }
@@ -40,7 +41,7 @@ static void udp_received(void *arg, struct udp_pcb *pcb, struct pbuf *p, const i
     }
     else
     {
-        printf("\n\rIncorrect packet. Should be 0 or 1 with length=1");
+        printf("\n\rIncorrect packet. Should contain char 0 or 1 with length=1 byte");
     }
     
     pbuf_free(p);
