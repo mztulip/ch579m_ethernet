@@ -55,12 +55,12 @@ UINT8  lwip_comm_init(void)
 
 	if(Netif_Init_Flag==NULL)
 	{
-		printf("netif_add fail\r\n");
+		printf("\n\rnetif_add fail");
 		return 4;
 	}
 	else
 	{
-		printf("netif_add success\r\n");
+		printf("\n\rnetif_add success");
 		netif_set_default(&lwip_netif); 
 		netif_set_up(&lwip_netif);
 		netif_set_link_up(&lwip_netif); 

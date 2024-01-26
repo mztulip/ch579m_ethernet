@@ -22,7 +22,7 @@ echo $TOOLCHAIN_GCC
 GCC_FLAGS="-c -ffunction-sections -fdata-sections -mthumb -mcpu=cortex-m0 -g -mfloat-abi=soft"
 INCLUDES_BASIC="-I StdPeriphDriver/inc/ -I CMSIS/Include/"
 INCLUDES_LWIP="-I lwip-2.1.2/src/include -I lwip-2.1.2/src/include/lwip -I lwip-2.1.2/src/arch -I lwip-2.1.2/src/"
-INLCUDES="$INCLUDES_BASIC -I eth_hardware/inc/ -I Net/inc $INCLUDES_LWIP"
+INLCUDES="$INCLUDES_BASIC -I Net/inc $INCLUDES_LWIP"
 
 file1="$TOOLCHAIN_GCC Main.c $INLCUDES -o build/main.o $GCC_FLAGS"
 echo $file1
@@ -81,7 +81,7 @@ file="$TOOLCHAIN_GCC stdlib_impl.c $INLCUDES -o build/stdlib_impl.o $GCC_FLAGS"
 echo $file
 $file
 
-file="$TOOLCHAIN_GCC eth_hardware/src/mybufque.c $INLCUDES -o build/mybufque.o $GCC_FLAGS"
+file="$TOOLCHAIN_GCC Net/src/mybufque.c $INLCUDES -o build/mybufque.o $GCC_FLAGS"
 echo $file
 $file
 
@@ -89,7 +89,7 @@ file="$TOOLCHAIN_GCC Net/src/mytcpserver.c $INLCUDES -o build/mytcpserver.o $GCC
 echo $file
 $file
 
-file="$TOOLCHAIN_GCC eth_hardware/src/parameter_setting.c $INLCUDES -o build/parameter_setting.o $GCC_FLAGS"
+file="$TOOLCHAIN_GCC Net/src/parameter_setting.c $INLCUDES -o build/parameter_setting.o $GCC_FLAGS"
 echo $file
 $file
 
@@ -196,7 +196,7 @@ echo $file
 $file
 
 filename=ethernetif
-file="$TOOLCHAIN_GCC eth_hardware/src/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
+file="$TOOLCHAIN_GCC Net/src/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
 echo $file
 $file
 
