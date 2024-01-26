@@ -223,6 +223,7 @@ void TCP_server_init(void)
 	{
 		printf("tcp_new error\r\n");
 	}
+	printf("TCP server initialised.");
 						
 }
 
