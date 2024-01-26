@@ -47,10 +47,10 @@ UINT8  lwip_comm_init(void)
 	IP4_ADDR_X(&netmask, MY_ETH_MASK);  
 	IP4_ADDR_X(&gw, MY_ETH_GW); 
 	printf("\n\rIP:%ld.%ld.%ld.%ld\n\r",  \
-        ((MY_ETH_IP)&0x000000ff),       \
-        (((MY_ETH_IP)&0x0000ff00)>>8),  \
-        (((MY_ETH_IP)&0x00ff0000)>>16), \
-        ((MY_ETH_IP)&0xff000000)>>24);
+        ((ipaddr.addr)&0x000000ff),       \
+        (((ipaddr.addr)&0x0000ff00)>>8),  \
+        (((ipaddr.addr)&0x00ff0000)>>16), \
+        ((ipaddr.addr)&0xff000000)>>24);
 	Netif_Init_Flag=netif_add(&lwip_netif,&ipaddr,&netmask,&gw,NULL,&ethernetif_init,&ethernet_input);
 
 	if(Netif_Init_Flag==NULL)
