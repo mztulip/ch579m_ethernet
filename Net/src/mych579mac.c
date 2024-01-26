@@ -15,28 +15,10 @@ static  TXBUFST   ETHTxMagPara;
 static  __attribute__((aligned(4))) UINT8     MACRxBuf[RX_QUEUE_NUM][RX_BUF_SIZE];  
 static  __attribute__((aligned(4))) UINT8     MACTxBuf[TX_QUEUE_NUM][TX_BUF_SIZE]; 
 
-
-UINT8   myCh579MAC[MACADDR_LEN] = {0x84,0xc2,0xe4,0x02,0x03,0x04};
+UINT8   myCh579MAC[MACADDR_LEN] = {0,0,0,0,0,0};
 
 UINT8 phy_flag=0;
 
-
-/*******************************************************************************
- * @fn          WritePHYReg
- *
- * @brief       PHY
- *
- * input parameters
- *
- * @param       reg_add.
- * @param       reg_val. 
- *
- * output parameters
- *
- * @param       None.
- *
- * @return      None.
- */
 static void WritePHYRegX(UINT8 reg_add,UINT16 reg_val)
 {
 	UINT8 reg_op=0;
@@ -46,21 +28,6 @@ static void WritePHYRegX(UINT8 reg_add,UINT16 reg_val)
 	R8_ETH_MIREGADR = reg_op;   
 }
 
-/*******************************************************************************
- * @fn          ReadPHYReg
- *
- * @brief       PHY
- *
- * input parameters
- *
- * @param       reg_add.
- *
- * output parameters
- *
- * @param       None.
- *
- * @return      
- */
 static UINT16 ReadPHYRegX(UINT8 reg_add)
 {
 	UINT8 reg_op=0;
@@ -96,20 +63,9 @@ void ETHParaInitX(void)
 	ETHTxMagPara.SendEn = 0;
 
 	GetMACAddress(myCh579MAC);
-//	myCh579MAC[5]=myCh579MAC[0]+myCh579MAC[1]+myCh579MAC[2]+myCh579MAC[3]+myCh579MAC[4]+myCh579MAC[5];
-//	myCh579MAC[0]=0x00; 
-	
-
 	printf("ETHParaInitX mac: %x:%x:%x:%x:%x:%x\r\n",myCh579MAC[5], myCh579MAC[4],myCh579MAC[3],myCh579MAC[2],myCh579MAC[1],myCh579MAC[0]);
-	
-
 }
 
-
-
-
-
-//����ӿڳ�ʼ��
 void ETHInitX(void)
 {
 
@@ -144,14 +100,14 @@ void ETHInitX(void)
 
 	R8_ETH_MACON2 |= PADCFG_AUTO_3;             
 	
-	R8_ETH_MACON2 |= RB_ETH_MACON2_TXCRCEN;          //RC
+	R8_ETH_MACON2 |= RB_ETH_MACON2_TXCRCEN;     
 	R8_ETH_MACON2 &= ~RB_ETH_MACON2_HFRMEN;        
 	
 
 	R8_ETH_MACON2 |= RB_ETH_MACON2_FULDPX;   
-	R16_ETH_MAMXFL = MAC_MAX_LEN;            //MAC
+	R16_ETH_MAMXFL = MAC_MAX_LEN;        
 	
-	R8_ETH_MAADR1 = myCh579MAC[5];           //MAC
+	R8_ETH_MAADR1 = myCh579MAC[5];         
 	R8_ETH_MAADR2 = myCh579MAC[4];
 	R8_ETH_MAADR3 = myCh579MAC[3];
 	R8_ETH_MAADR4 = myCh579MAC[2];
@@ -165,8 +121,6 @@ void ETHInitX(void)
 	R8_ETH_ECON1 |= RB_ETH_ECON1_RXEN;                                      
 
 	NVIC_EnableIRQ(ETH_IRQn); 
-
-	//printf("ETHInitX OK \r\n");
 }
 
 static void ETH_IRQ_ERR_Deal(UINT8 err_sta)
@@ -179,13 +133,6 @@ static void ETH_IRQ_ERR_Deal(UINT8 err_sta)
 	if(err_sta&RB_ETH_ESTAT_TXABRT)   printf("err:TXABRT\r\n");
 }
 
-
-
-/************************************************************
-
-send_len <= MAC_MAX_LEN(576 )
-
-*************************************************************/
 UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
 {
 	UINT16 len;
@@ -211,6 +158,12 @@ UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
 	
 
 	memcpy(p_tx_buf, p_data, len);
+	printf("\nlen tx: %d", len);
+	for(int i =0 ; i < len;i++)
+	{
+		uint8_t *pointer =  p_data+i;
+		printf("%02x ", *pointer);
+	}
 
 	
 	ETHTxMagPara.WriteIndex++;
@@ -254,6 +207,13 @@ UINT16 ETHRecX(UINT8     *pRecvBuf, UINT16 RecvBufSize)
 	recv_len = (ETHRxMagPara.RxBufLen[ETHRxMagPara.ReadIndex]<RecvBufSize)?ETHRxMagPara.RxBufLen[ETHRxMagPara.ReadIndex]:RecvBufSize ;
 	
 	memcpy(p_data, p_rx_buf, recv_len);
+	//For debugging frame content
+	// printf("\nlen: %d", recv_len);
+	// for(int i =0 ; i < recv_len;i++)
+	// {
+	// 	uint8_t *pointer =  p_data+i;
+	// 	printf("%02x ", *pointer);
+	// }
 	
 	ETHRxMagPara.RxBufStau[ETHRxMagPara.ReadIndex] = 0;
 	ETHRxMagPara.ReadIndex++;
@@ -310,7 +270,7 @@ void ETH_IRQHandler(void)
 			ETHRxMagPara.RxBufLen[ETHRxMagPara.RecvIndex] = rec_len;
 		}
 
-		//printf("recv finish:%d\r\n", rec_len);
+		// printf("recv finish:%d\r\n", rec_len);
 		//lwip_pkt_handle();
 		R8_ETH_EIR = RB_ETH_EIR_RXIF; 
 	}	
