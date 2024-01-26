@@ -17,7 +17,6 @@
 #include "timer0.h"
 
 #include <stdio.h>
-#include "parameter_setting.h"
 #include "eth_mac.h"
 #include "ip4_addr.h"
 
@@ -63,17 +62,22 @@ void NETLed_Init(void)
 	eth_green_led_off();
 }
 
+void netif_status_callback(struct netif *netif)
+{
+  printf("\n\rnetif status changed %s", ip4addr_ntoa(netif_ip4_addr(netif)));
+}
+
 uint8_t lwip_comm_init(void)
 {
 	struct netif *Netif_Init_Flag;	
 
 	NETLed_Init();
 	lwip_init();
-   
-	IP4_ADDR_X(&ipaddr, 0xC0A802EB);  //192.168.2.235 
-	IP4_ADDR_X(&netmask, 0xFFFFFF00);  
-	IP4_ADDR_X(&gw, 0xC0A80201); //192.168.2.1
 
+	IP4_ADDR(&ipaddr,  192, 168,   2, 235);
+	IP4_ADDR(&netmask, 255, 255, 255,  0);
+	IP4_ADDR(&gw,      192, 168,   2,  1);
+   
 	printf("\n\rIP:%ld.%ld.%ld.%ld\n\r",  \
         ((ipaddr.addr)&0x000000ff),       \
         (((ipaddr.addr)&0x0000ff00)>>8),  \
@@ -88,7 +92,7 @@ uint8_t lwip_comm_init(void)
 	}
 	else
 	{
-		
+		netif_set_status_callback(&lwip_netif, netif_status_callback);
 		netif_set_default(&lwip_netif); 
 		netif_set_up(&lwip_netif);
 		netif_set_link_up(&lwip_netif); 
@@ -153,9 +157,6 @@ void lwip_periodic_handle(void)
 		}
 	}
 
-	last_phy_link_state = phy_link_state;
-
-    sys_check_timeouts();	
-	
+	last_phy_link_state = phy_link_state;	
 }
 
