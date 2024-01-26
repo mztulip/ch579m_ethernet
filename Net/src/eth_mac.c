@@ -56,7 +56,7 @@ void ETHParaInitX(void)
 	ETHTxMagPara.SendEn = 0;
 
 	GetMACAddress(myCh579MAC);
-	printf("ETHParaInitX mac: %x:%x:%x:%x:%x:%x\r\n",myCh579MAC[5], myCh579MAC[4],myCh579MAC[3],myCh579MAC[2],myCh579MAC[1],myCh579MAC[0]);
+	printf("\n\rMac: %x:%x:%x:%x:%x:%x",myCh579MAC[5], myCh579MAC[4],myCh579MAC[3],myCh579MAC[2],myCh579MAC[1],myCh579MAC[0]);
 }
 
 void ETHInitX(void)
@@ -151,12 +151,12 @@ UINT8 ETHSendX(UINT8 *pSendBuf, UINT16 send_len)
 	
 
 	memcpy(p_tx_buf, p_data, len);
-	printf("\nlen tx: %d", len);
-	for(int i =0 ; i < len;i++)
-	{
-		uint8_t *pointer =  p_data+i;
-		printf("%02x ", *pointer);
-	}
+	// printf("\nlen tx: %d", len);
+	// for(int i =0 ; i < len;i++)
+	// {
+	// 	uint8_t *pointer =  p_data+i;
+	// 	printf("%02x ", *pointer);
+	// }
 
 	
 	ETHTxMagPara.WriteIndex++;
