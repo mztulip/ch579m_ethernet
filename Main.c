@@ -4,6 +4,7 @@
 #include "parameter_setting.h"
 #include  "eth_mac.h"
 #include  "ethernetif.h"
+#include "timer0.h"
 
 void uart_init(void)		
 {

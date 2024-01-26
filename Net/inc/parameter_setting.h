@@ -8,15 +8,5 @@
 #include <string.h>
 
 
-	
-								
-#define  	GET_SYS_TICK()			gSysTicket
-
-extern 	 UINT8  			gMyPeerMac[];
-extern   UINT32   			gSysTicket ;
-
-void  InitTimer0(void);
-void  InitAppCommon(void);
-void  NETLed_Init(void);
 
 #endif 

@@ -14,6 +14,7 @@
 #include "lwip/stats.h"
 #include "ethernetif.h" 
 #include "lwipcomm.h"
+#include "timer0.h"
 
 #include <stdio.h>
 #include "parameter_setting.h"
@@ -108,7 +109,7 @@ void lwip_periodic_handle(void)
 	static UINT32 last_timestamp = 0;
 	static UINT8  last_phy_link_state = 0;
 	UINT8 phy_link_state = 0;
-	UINT32 cur_timestamp = GET_SYS_TICK();
+	UINT32 cur_timestamp = get_time_10ms();
 
 	if(cur_timestamp < last_timestamp)
 	{

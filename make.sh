@@ -188,11 +188,6 @@ file="$TOOLCHAIN_GCC Net/src/$filename.c $INLCUDES -o build/$filename.o $GCC_FLA
 echo $file
 $file
 
-filename=sys_arch
-file="$TOOLCHAIN_GCC lwip-2.1.2/src/arch/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
-echo $file
-$file
-
 filename=err
 file="$TOOLCHAIN_GCC lwip-2.1.2/src/api/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
 echo $file
