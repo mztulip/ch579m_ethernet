@@ -32,7 +32,7 @@
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
-#define NO_SYS                     1 //²»´ø²Ù×÷ÏµÍ³        0
+#define NO_SYS                     1
 #define LWIP_SOCKET               (NO_SYS==0)
 #define LWIP_NETCONN              (NO_SYS==0)
 
@@ -60,15 +60,16 @@
 //#define LWIP_NETIF_STATUS_CALLBACK 1
 
 
-#define   LWIP_DEBUG      0
-#if 0
+#define   LWIP_DEBUG      1
+#if 1
 
 #if LWIP_DEBUG
 
-#define LWIP_DBG_MIN_LEVEL         0
-#define PPP_DEBUG                  LWIP_DBG_OFF
-#define MEM_DEBUG                  LWIP_DBG_OFF
-#define MEMP_DEBUG                 LWIP_DBG_OFF
+#define LWIP_DBG_MIN_LEVEL         LWIP_DBG_LEVEL_ALL
+#define PPP_DEBUG                  LWIP_DBG_ON
+#define ETHARP_DEBUG               LWIP_DBG_ON
+#define MEM_DEBUG                  LWIP_DBG_ON
+#define MEMP_DEBUG                 LWIP_DBG_ON
 #define PBUF_DEBUG                 LWIP_DBG_OFF
 #define API_LIB_DEBUG              LWIP_DBG_OFF
 #define API_MSG_DEBUG              LWIP_DBG_OFF
@@ -96,7 +97,7 @@
 
 #endif 
 
-//#define LWIP_DBG_TYPES_ON         (LWIP_DBG_ON|LWIP_DBG_TRACE|LWIP_DBG_STATE|LWIP_DBG_FRESH|LWIP_DBG_HALT)
+#define LWIP_DBG_TYPES_ON         (LWIP_DBG_ON|LWIP_DBG_TRACE|LWIP_DBG_STATE|LWIP_DBG_FRESH|LWIP_DBG_HALT)
 
 
 /* ---------- Memory options ---------- */
@@ -247,28 +248,28 @@ a lot of data that needs to be copied, this should be set high. */
 #define UDP_TTL                 255
 
 
-//STM32F746ÔÊÐíÍ¨¹ýÓ²¼þÊ¶±ðºÍ¼ÆËãIP,UDPºÍICMPµÄÖ¡Ð£ÑéºÍ
-#define CHECKSUM_BY_HARDWARE      0   //¶¨ÒåCHECKSUM_BY_HARDWARE,Ê¹ÓÃÓ²¼þÖ¡Ð£Ñé
+//STM32F746ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Ó²ï¿½ï¿½Ê¶ï¿½ï¿½Í¼ï¿½ï¿½ï¿½IP,UDPï¿½ï¿½ICMPï¿½ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+#define CHECKSUM_BY_HARDWARE      0   //ï¿½ï¿½ï¿½ï¿½CHECKSUM_BY_HARDWARE,Ê¹ï¿½ï¿½Ó²ï¿½ï¿½Ö¡Ð£ï¿½ï¿½
 
 #if CHECKSUM_BY_HARDWARE
   
-  #define 	CHECKSUM_GEN_IP     0     //CHECKSUM_GEN_IP==0: Ó²¼þÉú³ÉIPÊý¾Ý°üµÄÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_GEN_UDP    0		//CHECKSUM_GEN_UDP==0: Ó²¼þÉú³ÉUDPÊý¾Ý°üµÄÖ¡Ð£ÑéºÍ  
-  #define 	CHECKSUM_GEN_TCP     0   //CHECKSUM_GEN_TCP==0: Ó²¼þÉú³ÉTCPÊý¾Ý°üµÄÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_CHECK_IP   0    //CHECKSUM_CHECK_IP==0: Ó²¼þ¼ì²éÊäÈëµÄIPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_CHECK_UDP   0   //CHECKSUM_CHECK_UDP==0: Ó²¼þ¼ì²éÊäÈëµÄUDPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_CHECK_TCP  0   //CHECKSUM_CHECK_TCP==0: Ó²¼þ¼ì²éÊäÈëµÄTCPÊý¾Ý°üÖ¡Ð£ÑéºÍ 
-  #define 	CHECKSUM_GEN_ICMP  0    /* CHECKSUM_CHECK_ICMP==0:Ó²¼þ¼ì²éÊäÈëµÄICMPÊý¾Ý°üÖ¡Ð£ÑéºÍ*/
+  #define 	CHECKSUM_GEN_IP     0     //CHECKSUM_GEN_IP==0: Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_GEN_UDP    0		//CHECKSUM_GEN_UDP==0: Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UDPï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½Ö¡Ð£ï¿½ï¿½ï¿½  
+  #define 	CHECKSUM_GEN_TCP     0   //CHECKSUM_GEN_TCP==0: Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_CHECK_IP   0    //CHECKSUM_CHECK_IP==0: Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_CHECK_UDP   0   //CHECKSUM_CHECK_UDP==0: Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UDPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_CHECK_TCP  0   //CHECKSUM_CHECK_TCP==0: Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½ 
+  #define 	CHECKSUM_GEN_ICMP  0    /* CHECKSUM_CHECK_ICMP==0:Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ICMPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½*/
   
 #else
  
-  #define 	CHECKSUM_GEN_IP      1    //CHECKSUM_GEN_IP==1: Èí¼þÉú³ÉIPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_GEN_UDP    1  	// CHECKSUM_GEN_UDP==1: Èí¼þÉú³ÉUDOPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_GEN_TCP    1  	//CHECKSUM_GEN_TCP==1: Èí¼þÉú³ÉTCPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_CHECK_IP   1   	// CHECKSUM_CHECK_IP==1: Èí¼þ¼ì²éÊäÈëµÄIPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_CHECK_UDP   1    // CHECKSUM_CHECK_UDP==1: Èí¼þ¼ì²éÊäÈëµÄUDPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_CHECK_TCP  1    //CHECKSUM_CHECK_TCP==1: Èí¼þ¼ì²éÊäÈëµÄTCPÊý¾Ý°üÖ¡Ð£ÑéºÍ
-  #define 	CHECKSUM_GEN_ICMP   1    /* CHECKSUM_CHECK_ICMP==0:Èí¼þ¼ì²éÊäÈëµÄICMPÊý¾Ý°üÖ¡Ð£ÑéºÍ*/ 
+  #define 	CHECKSUM_GEN_IP      1    //CHECKSUM_GEN_IP==1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_GEN_UDP    1  	// CHECKSUM_GEN_UDP==1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UDOPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_GEN_TCP    1  	//CHECKSUM_GEN_TCP==1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_CHECK_IP   1   	// CHECKSUM_CHECK_IP==1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_CHECK_UDP   1    // CHECKSUM_CHECK_UDP==1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UDPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_CHECK_TCP  1    //CHECKSUM_CHECK_TCP==1: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½
+  #define 	CHECKSUM_GEN_ICMP   1    /* CHECKSUM_CHECK_ICMP==0:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ICMPï¿½ï¿½ï¿½Ý°ï¿½Ö¡Ð£ï¿½ï¿½ï¿½*/ 
   
 #endif
 
