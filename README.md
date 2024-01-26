@@ -1,7 +1,6 @@
-# ch579m_ethernet
+# ch579m_udp_led
 
-Project is based on, another lwip port: https://gitee.com/maji19971221/lwip-routine
-
+Project presents UDP server to control led state.
 
 Compile:
 ```
@@ -19,3 +18,8 @@ Board can be programmed over USB cable using https://github.com/ch32-rs/wchisp.
 ```
 wchisp flash output.elf
 ```
+
+Project is based on, another lwip port: https://gitee.com/maji19971221/lwip-routine.
+It gives base with almost working ethernet mac layer.
+
+Project uses lwip: https://savannah.nongnu.org/projects/lwip/
