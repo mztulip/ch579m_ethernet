@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include "parameter_setting.h"
 
-#include "mych579mac.h"
+#include "eth_mac.h"
 
 
 #include "ip4_addr.h"

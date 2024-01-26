@@ -1,11 +1,4 @@
-
-
-/************************************************************
-CH579 mac ͨ
-
-*************************************************************/
-
-#include "mych579mac.h"
+#include "eth_mac.h"
 
 #include "parameter_setting.h"
 static  RXBUFST   ETHRxMagPara;   

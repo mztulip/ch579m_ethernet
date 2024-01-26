@@ -8,13 +8,10 @@
 
 #include  "mytcpserver.h"
 #include "parameter_setting.h"
-#include  "mych579mac.h"
+#include  "eth_mac.h"
 #include  "mybufque.h"
 
 
-
-
-//�¿ͻ���TCP����,������ͻ��˷�������,����socket,
 static struct tcp_pcb *gNewClientPcb = NULL;
 
 

@@ -190,7 +190,7 @@ file="$TOOLCHAIN_GCC lwip-2.1.2/src/core/ipv4/$filename.c $INLCUDES -o build/$fi
 echo $file
 $file
 
-filename=mych579mac
+filename=eth_mac
 file="$TOOLCHAIN_GCC Net/src/$filename.c $INLCUDES -o build/$filename.o $GCC_FLAGS"
 echo $file
 $file

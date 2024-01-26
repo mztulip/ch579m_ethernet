@@ -6,7 +6,7 @@
 #include "parameter_setting.h"
 
 #include  "mybufque.h"
-#include  "mych579mac.h"
+#include  "eth_mac.h"
 #include  "ethernetif.h"
 #include  "mytcpserver.h"
 

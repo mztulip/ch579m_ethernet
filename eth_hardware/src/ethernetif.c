@@ -53,7 +53,7 @@
 #include "netif/etharp.h"
 #include "lwip/netif.h"
 
-#include "mych579mac.h"
+#include "eth_mac.h"
 
 #include "ethernetif.h"
 #include "lwip/snmp.h"
@@ -162,16 +162,14 @@ err_t  MyMacSendData(UINT8*dataBuf,     UINT16 dataSize)
 
 	//memcpy(gMacFrameBuf, dataBuf,  dataSize);
 
-  	//����Ŀ��MAC��ַ
-	memcpy(&dataBuf[1], gMyPeerMac,6);  		//Ŀ��MAC��ַ
-	memcpy(&dataBuf[7],lwip_netif.hwaddr,6);  		//ԴMAC��ַ
+	memcpy(&dataBuf[1], gMyPeerMac,6);  	
+	memcpy(&dataBuf[7],lwip_netif.hwaddr,6);  		
 
 	 dataBuf[13]  = 0xaa;
 	 dataBuf[14]  = 0xaa;
 
-	//���ݳ��ȸ�λ ,MAC֡�����򳤶Ȳ�����MAC֡ͷ
-	 dataBuf[15] = ((dataSize-16)>>8)&0xff;  //�ȸ�λ
-	 dataBuf[16] =  (dataSize-16)&0xff;  //���λ
+	 dataBuf[15] = ((dataSize-16)>>8)&0xff; 
+	 dataBuf[16] =  (dataSize-16)&0xff;  
 
 	 framelen = dataSize; 
 
